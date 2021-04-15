@@ -2,7 +2,7 @@
 
 namespace Hahn.ApplicatonProcess.February2021.Domain.Models
 {
-    public class CreateAssetModel
+    public class AssetModel
     {
         public int Id { get; set; }
         public string AssetName { get; set; }

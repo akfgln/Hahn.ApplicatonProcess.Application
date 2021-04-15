@@ -38,7 +38,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
             return asset;
         }
 
-        public async Task<Asset> Create(CreateAssetModel model)
+        public async Task<Asset> Create(AssetModel model)
         {
             var item = new Asset
             {
