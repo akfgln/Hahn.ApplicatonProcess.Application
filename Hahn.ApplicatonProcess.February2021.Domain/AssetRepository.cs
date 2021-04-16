@@ -27,7 +27,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
 
         private IQueryable<Asset> GetQuery()
         {
-            var q = _uow.Query<Asset>();
+            var q = _uow.Query<Asset>().Where(x => !x.IsDeleted);
             return q;
         }
 
@@ -35,6 +35,10 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
         {
             var asset = GetQuery().FirstOrDefault(x => x.Id == id);
 
+            if (asset == null)
+            {
+                throw new Exception(message: "Item is not found!");
+            }
             return asset;
         }
 
@@ -56,7 +60,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
             return item;
         }
 
-        public async Task<Asset> Update(int id, UpdateAssetModel model)
+        public async Task<Asset> Update(int id, AssetModel model)
         {
             var asset = GetQuery().FirstOrDefault(x => x.Id == id);
 
