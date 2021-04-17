@@ -3,7 +3,10 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using Hahn.ApplicatonProcess.February2021.Data;
 using Hahn.ApplicatonProcess.February2021.Domain;
+using Hahn.ApplicatonProcess.February2021.Domain.Common;
 using Hahn.ApplicatonProcess.February2021.Domain.Maps;
+using Hahn.ApplicatonProcess.February2021.Domain.Security;
+using Hahn.ApplicatonProcess.February2021.Web.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Hahn.ApplicatonProcess.February2021.Web
 {
-    public static class Configutations
+    public static class Configurations
     {
         public static void Setup(IServiceCollection services, IConfiguration configuration)
         {
@@ -24,6 +27,8 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         private static void ConfigureAuth(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ITokenBuilder, TokenBuilder>();
+            services.AddScoped<ISecurityContext, SecurityContext>();
         }
 
         private static void ConfigureAutoMapper(IServiceCollection services)

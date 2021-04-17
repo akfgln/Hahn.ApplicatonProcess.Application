@@ -1,9 +1,7 @@
 ﻿using Hahn.ApplicatonProcess.February2021.Data;
+using Hahn.ApplicatonProcess.February2021.Domain.Exceptions;
 using Hahn.ApplicatonProcess.February2021.Domain.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hahn.ApplicatonProcess.February2021.Domain
@@ -37,7 +35,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
 
             if (asset == null)
             {
-                throw new Exception(message: "Item is not found!");
+                throw new NotFoundException(message: "Asset is not found!");
             }
             return asset;
         }
@@ -60,13 +58,13 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
             return item;
         }
 
-        public async Task<Asset> Update(int id, AssetModel model)
+        public async Task<Asset> Update(AssetModel model)
         {
-            var asset = GetQuery().FirstOrDefault(x => x.Id == id);
+            var asset = GetQuery().FirstOrDefault(x => x.Id == model.Id);
 
             if (asset == null)
             {
-                throw new Exception("Asset is not found");
+                throw new NotFoundException("Asset is not found");
             }
 
             asset.AssetName = model.AssetName;
@@ -85,7 +83,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
 
             if (asset == null)
             {
-                throw new Exception("Asset is not found");
+                throw new NotFoundException("Asset is not found");
             }
 
             if (asset.IsDeleted) return;

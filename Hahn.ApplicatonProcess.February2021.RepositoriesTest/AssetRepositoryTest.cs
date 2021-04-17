@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Hahn.ApplicatonProcess.February2021.Data;
 using Hahn.ApplicatonProcess.February2021.Domain;
+using Hahn.ApplicatonProcess.February2021.Domain.Exceptions;
 using Hahn.ApplicatonProcess.February2021.Domain.Models;
 using Moq;
 using System;
@@ -28,7 +29,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
         [Fact]
         public void GetShouldReturnAll()
         {
-            assetList.Add(new Asset { AssetName = random.Next().ToString()});
+            assetList.Add(new Asset { AssetName = random.Next().ToString() });
 
             var result = assetRepository.Get().ToList();
             result.Count().Should().Be(1);
@@ -65,7 +66,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
                 assetRepository.Get(random.Next());
             };
 
-            get.Should().Throw<Exception>();
+            get.Should().Throw<NotFoundException>();
         }
 
         [Fact]
@@ -95,8 +96,9 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
         [Fact]
         public async Task UpdateShouldUpdateFields()
         {
-            var asset = new Asset { 
-                Id = random.Next(), 
+            var asset = new Asset
+            {
+                Id = random.Next(),
                 AssetName = random.Next().ToString(),
                 CountryOfDepartment = random.Next().ToString(),
                 Department = Domain.Models.Departments.Store1.ToString(),
@@ -106,11 +108,12 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
 
             var model = new AssetModel
             {
+                Id = asset.Id,
                 CountryOfDepartment = random.Next().ToString(),
                 Department = Domain.Models.Departments.MaintenanceStation,
             };
 
-            var result = await assetRepository.Update(asset.Id, model);
+            var result = await assetRepository.Update(model);
 
             result.Should().Be(asset);
             result.AssetName.Should().Be(asset.AssetName);
@@ -126,10 +129,10 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
         {
             Action create = () =>
             {
-                var result = assetRepository.Update(random.Next(), new AssetModel()).Result;
+                var result = assetRepository.Update(new AssetModel { Id = random.Next() }).Result;
             };
 
-            create.Should().Throw<Exception>();
+            create.Should().Throw<NotFoundException>();
         }
 
         [Fact]
@@ -153,7 +156,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
                 assetRepository.Delete(random.Next()).Wait();
             };
 
-            execute.Should().Throw<Exception>();
+            execute.Should().Throw<NotFoundException>();
         }
     }
 }
