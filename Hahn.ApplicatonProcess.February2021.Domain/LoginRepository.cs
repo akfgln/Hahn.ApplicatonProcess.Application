@@ -50,9 +50,8 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
 
             return new UserWithToken
             {
-                ExpiresAt = expiresIn,
                 Expiration = expiresIn,
-                Token = token,
+                Token = "Bearer "+ token,
                 User = user
             };
         }

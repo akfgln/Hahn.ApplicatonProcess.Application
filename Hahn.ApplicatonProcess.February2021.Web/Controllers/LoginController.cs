@@ -24,8 +24,14 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Authenticate method for hahn project
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost("Authenticate")]
         [ValidateModel]
+        //[SwaggerRequestExample(typeof(LoginModel), typeof(LoginModelRequestExample))]
         public ActionResult<UserWithTokenModel> Authenticate([FromBody] LoginModel model)
         {
             var result = loginRepository.Authenticate(model.Email, model.Password);
