@@ -1,7 +1,9 @@
+using FluentValidation.AspNetCore;
 using Hahn.ApplicatonProcess.February2021.Data;
 using Hahn.ApplicatonProcess.February2021.Data.Helpers;
 using Hahn.ApplicatonProcess.February2021.Domain.Common;
 using Hahn.ApplicatonProcess.February2021.Web.Filters;
+using Hahn.ApplicatonProcess.February2021.Web.Filters.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Converters;
 using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.Collections.Generic;
@@ -35,13 +38,18 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         {
             Configurations.Setup(services, Configuration);
             ConfigureJwtBearer(services, Configuration);
-            services.AddControllers();
+            services.AddControllers()
+            .AddNewtonsoftJson(options =>
+        options.SerializerSettings.Converters.Add(new StringEnumConverter()));
             services.AddMvc(options => { options.Filters.Add(new ApiExceptionFilter()); })
+                .AddFluentValidation(conf => conf.RegisterValidatorsFromAssemblyContaining<Startup>())
                .AddJsonOptions(o =>
                {
                    o.JsonSerializerOptions.PropertyNamingPolicy = null;
                    o.JsonSerializerOptions.DictionaryKeyPolicy = null;
                });
+
+            services.AddSwaggerGenNewtonsoftSupport();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.February2021.Web", Version = "v1" });
@@ -58,7 +66,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
                 });
-
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement()
                       {
                         {
@@ -76,6 +83,8 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                             new System.Collections.Generic.List<string>()
                           }
                         });
+
+                c.SchemaFilter<EnumSchemaFilter>();
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
