@@ -51,11 +51,11 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             return StatusCode((int)HttpStatusCode.Created, model);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ValidateModel]
-        public async Task<ActionResult<AssetModel>> Put([FromBody] AssetModel requestModel)
+        public async Task<ActionResult<AssetModel>> Put(int id, [FromBody] AssetModel requestModel)
         {
-            var item = await assetRepository.Update(requestModel);
+            var item = await assetRepository.Update(id, requestModel);
             var model = mapper.Map<AssetModel>(item);
             return StatusCode((int)HttpStatusCode.Accepted, model);
         }

@@ -6,10 +6,7 @@ using Hahn.ApplicatonProcess.February2021.Domain.Maps;
 using Hahn.ApplicatonProcess.February2021.Domain.Models;
 using Hahn.ApplicatonProcess.February2021.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -49,7 +46,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public async Task<ActionResult<UserModel>> Post([FromBody] CreateUpdateUserModel requestModel)
+        public async Task<ActionResult<UserModel>> Post([FromBody] CreateUserModel requestModel)
         {
             var item = await userRepository.Create(requestModel);
             var model = mapper.Map<UserModel>(item);
@@ -58,7 +55,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
 
         [HttpPut("{id}")]
         [ValidateModel]
-        public async Task<ActionResult<UserModel>> Put(int id, [FromBody] CreateUpdateUserModel requestModel)
+        public async Task<ActionResult<UserModel>> Put(int id, [FromBody] UpdateUserModel requestModel)
         {
             var item = await userRepository.Update(id, requestModel);
             var model = mapper.Map<UserModel>(item);

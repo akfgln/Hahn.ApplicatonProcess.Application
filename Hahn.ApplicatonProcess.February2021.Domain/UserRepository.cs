@@ -1,11 +1,9 @@
 ﻿using Hahn.ApplicatonProcess.February2021.Data;
 using Hahn.ApplicatonProcess.February2021.Data.Helpers;
-using Hahn.ApplicatonProcess.February2021.Domain.Common;
 using Hahn.ApplicatonProcess.February2021.Domain.Exceptions;
 using Hahn.ApplicatonProcess.February2021.Domain.Models;
 using Hahn.ApplicatonProcess.February2021.Domain.Security;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -49,7 +47,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
             return user;
         }
 
-        public async Task<Users> Create(CreateUpdateUserModel model)
+        public async Task<Users> Create(CreateUserModel model)
         {
             var email = model.Email.Trim();
             if (GetQuery().Any(u => u.EMail == email))
@@ -88,7 +86,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
             }
         }
 
-        public async Task<Users> Update(int id, CreateUpdateUserModel model)
+        public async Task<Users> Update(int id, UpdateUserModel model)
         {
             var user = GetQuery().FirstOrDefault(x => x.Id == id);
 
@@ -96,8 +94,6 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
             {
                 throw new NotFoundException("User is not found!");
             }
-
-            user.EMail = model.Email;
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
 

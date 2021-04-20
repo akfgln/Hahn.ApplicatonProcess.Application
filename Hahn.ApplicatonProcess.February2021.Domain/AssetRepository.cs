@@ -58,9 +58,9 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
             return item;
         }
 
-        public async Task<Asset> Update(AssetModel model)
+        public async Task<Asset> Update(int id, AssetModel model)
         {
-            var asset = GetQuery().FirstOrDefault(x => x.Id == model.Id);
+            var asset = GetQuery().FirstOrDefault(x => x.Id == id);
 
             if (asset == null)
             {

@@ -46,7 +46,6 @@ namespace Hahn.ApplicatonProcess.February2021.IntegrationTests.Common
 
             // Create instance of test server
             Server = new TestServer(webHostBuilder);
-            //Server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
             Client = GetAuthenticatedClient(Email, Password);
 
         }

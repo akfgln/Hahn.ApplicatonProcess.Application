@@ -16,11 +16,11 @@ namespace Hahn.ApplicatonProcess.February2021.Data.Migrations
             migrationBuilder.Sql($@"
                 DECLARE @password NVARCHAR(MAX) = N'{adminPassword}'
                  if not exists(select * from dbo.users where EMAIL = N'admin@hahn.com' )
-                INSERT INTO [dbo].[tbl_users]
-                           ([EMAIL]
-                           ,[PASSWORD]
-                           ,[FIRST_NAME]
-                           ,[LAST_NAME]
+                INSERT INTO [dbo].[Users]
+                           ([EMail]
+                           ,[Password]
+                           ,[FirstName]
+                           ,[LastName]
                            ,[IsDeleted])
                      VALUES
                            (N'admin@hahn.com'
@@ -32,8 +32,8 @@ namespace Hahn.ApplicatonProcess.February2021.Data.Migrations
                 DECLARE @adminId INT = @@IDENTITY
 
                 INSERT INTO dbo.UserRoles
-                        ( RoleId, UserId )
-                SELECT RoleId, @adminId FROM dbo.Roles
+                        ( RoleId, UserId,IsActive )
+                SELECT RoleId, @adminId,1 FROM dbo.Roles
                 WHERE DefaultRoleName = 'Administrator'
                 ");
         }

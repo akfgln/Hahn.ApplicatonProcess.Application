@@ -1,14 +1,21 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Principal;
+using System.Text;
 
 namespace Hahn.ApplicatonProcess.February2021.Domain.Common
 {
     public class TokenBuilder : ITokenBuilder
     {
+        private readonly IConfiguration configuration;
+        public TokenBuilder(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
         public string Build(string name, string[] roles, DateTime expireDate)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -21,7 +28,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain.Common
             }
 
             ClaimsIdentity identity = new ClaimsIdentity(
-                new GenericIdentity(name, "Bearer"),
+                new GenericIdentity(name, TokenAuthOption.TokenType),
                 claims
             );
 

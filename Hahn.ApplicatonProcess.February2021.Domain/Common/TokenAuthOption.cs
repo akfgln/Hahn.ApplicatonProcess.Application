@@ -6,8 +6,8 @@ namespace Hahn.ApplicatonProcess.February2021.Domain.Common
 {
     public class TokenAuthOption
     {
-        public static string Audience { get; } = "HahnAudience";
-        public static string Issuer { get; } = "HahnIssuer";
+        public static string Audience { get; } = "ExpensesAudience";
+        public static string Issuer { get; } = "ExpensesAudience";
         public static RsaSecurityKey Key { get; } = new RsaSecurityKey(RSAKeyHelper.GenerateKey());
         public static SigningCredentials SigningCredentials { get; } = new SigningCredentials(Key, SecurityAlgorithms.RsaSha256Signature);
 

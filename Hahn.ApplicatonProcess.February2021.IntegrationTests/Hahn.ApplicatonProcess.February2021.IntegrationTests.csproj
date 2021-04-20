@@ -40,9 +40,4 @@
     <ProjectReference Include="..\Hahn.ApplicatonProcess.February2021.Web\Hahn.ApplicatonProcess.February2021.Web.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Login\" />
-    <Folder Include="Asset\" />
-  </ItemGroup>
-
 </Project>

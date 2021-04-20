@@ -38,7 +38,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
         }
 
         [Fact]
-        public async Task GetShouldReturnAll()
+        public void GetShouldReturnAll()
         {
             userList.Add(new Users());
 
@@ -47,7 +47,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
         }
 
         [Fact]
-        public async Task GetShouldReturnAllExceptDeleted()
+        public void GetShouldReturnAllExceptDeleted()
         {
             userList.Add(new Users());
             userList.Add(new Users { IsDeleted = true });
@@ -98,7 +98,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
         [Fact]
         public async Task CreateShouldSaveNewUser()
         {
-            var model = new CreateUpdateUserModel
+            var model = new CreateUserModel
             {
                 Password = random.Next().ToString(),
                 Email = random.Next().ToString(),
@@ -126,7 +126,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
             };
             roleList.Add(role);
 
-            var model = new CreateUpdateUserModel
+            var model = new CreateUserModel
             {
                 Password = random.Next().ToString(),
                 Email = random.Next().ToString(),
@@ -146,7 +146,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
         [Fact]
         public void CreateShouldThrowExceptionIfEmailIsNotUnique()
         {
-            var model = new CreateUpdateUserModel
+            var model = new CreateUserModel
             {
                 Email = random.Next().ToString(),
             };
@@ -167,9 +167,8 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
             var user = new Users { Id = random.Next() };
             userList.Add(user);
 
-            var model = new CreateUpdateUserModel
+            var model = new UpdateUserModel
             {
-                Email = random.Next().ToString(),
                 LastName = random.Next().ToString(),
                 FirstName = random.Next().ToString(),
             };
@@ -177,7 +176,6 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
             var result = await userRepository.Update(user.Id, model);
 
             result.Should().Be(user);
-            result.EMail.Should().Be(model.Email);
             result.LastName.Should().Be(model.LastName);
             result.FirstName.Should().Be(model.FirstName);
 
@@ -203,7 +201,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
             };
             userList.Add(user);
 
-            var model = new CreateUpdateUserModel
+            var model = new UpdateUserModel
             {
                 LastName = random.Next().ToString(),
                 FirstName = random.Next().ToString(),
@@ -223,7 +221,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
         {
             Action create = () =>
             {
-                var result = userRepository.Update(random.Next(), new CreateUpdateUserModel()).Result;
+                var result = userRepository.Update(random.Next(), new UpdateUserModel()).Result;
             };
 
             create.Should().Throw<NotFoundException>();

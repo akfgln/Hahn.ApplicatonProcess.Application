@@ -60,9 +60,11 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
 
             var token = random.Next().ToString();
             tokenBuilder.Setup(tb => tb.Build(
+
                 user.EMail,
                 It.Is<string[]>(roles => roles.SequenceEqual(user.Roles.Select(x => x.Role.DefaultRoleName).ToArray())),
-                    It.Is<DateTime>(d => d - expireTokenDate < TimeSpan.FromSeconds(1))))
+
+                It.Is<DateTime>(d => d - expireTokenDate < TimeSpan.FromSeconds(1))))
                 .Returns(token);
 
             var result = loginRepository.Authenticate(user.EMail, password);
@@ -118,7 +120,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
 
             var createdUser = new Users();
 
-            userRepository.Setup(x => x.Create(It.Is<CreateUpdateUserModel>(m =>
+            userRepository.Setup(x => x.Create(It.Is<CreateUserModel>(m =>
                 m.FirstName == requestModel.FirstName
                 && m.LastName == requestModel.LastName
                 && m.Password == requestModel.Password

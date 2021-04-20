@@ -20,7 +20,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
 
         public LoginController(ILoginRepository loginRepository, IAutoMapper mapper)
         {
-            loginRepository = loginRepository;
+            this.loginRepository = loginRepository;
             this.mapper = mapper;
         }
 
@@ -30,7 +30,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
         {
             var result = loginRepository.Authenticate(model.Email, model.Password);
             var resultModel = mapper.Map<UserWithTokenModel>(result);
-            return StatusCode((int)HttpStatusCode.Created, resultModel);
+            return StatusCode((int)HttpStatusCode.OK, resultModel);
         }
 
         [HttpPost("Register")]

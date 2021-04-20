@@ -13,18 +13,18 @@ namespace Hahn.ApplicatonProcess.February2021.Data.Migrations
 
             if not exists(select * from dbo.Roles where DefaultRoleName = N'Administrator' )
               INSERT INTO dbo.Roles
-                      ( DefaultRoleName,IsDeleted,CreateDate,ModifiedDate )
-              VALUES  ( N'Administrator',0,GETDATE(),GETDATE())
+                      ( DefaultRoleName,IsDeleted,CreateDate,ModifiedDate,IsActive )
+              VALUES  ( N'Administrator',0,GETDATE(),GETDATE(),1)
 
 		    if not exists(select * from dbo.Roles where DefaultRoleName = N'Manager' )
               INSERT INTO dbo.Roles
-                      ( DefaultRoleName,IsDeleted,CreateDate,ModifiedDate )
-              VALUES  ( N'Manager',0,GETDATE(),GETDATE())	
+                      ( DefaultRoleName,IsDeleted,CreateDate,ModifiedDate,IsActive )
+              VALUES  ( N'Manager',0,GETDATE(),GETDATE(),1)	
 
             if not exists(select * from dbo.Roles where DefaultRoleName = N'Administrator,Manager' )
                INSERT INTO dbo.Roles
-                      ( DefaultRoleName,IsDeleted,CreateDate,ModifiedDate )
-              VALUES  ( N'Administrator,Manager',0,GETDATE(),GETDATE())
+                      ( DefaultRoleName,IsDeleted,CreateDate,ModifiedDate,IsActive )
+              VALUES  ( N'Administrator,Manager',0,GETDATE(),GETDATE(),1)
            ");
         }
 

@@ -51,6 +51,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
             return new UserWithToken
             {
                 ExpiresAt = expiresIn,
+                Expiration = expiresIn,
                 Token = token,
                 User = user
             };
@@ -58,7 +59,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
 
         public async Task<Users> Register(RegisterLoginModel model)
         {
-            var requestModel = new CreateUpdateUserModel
+            var requestModel = new CreateUserModel
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,

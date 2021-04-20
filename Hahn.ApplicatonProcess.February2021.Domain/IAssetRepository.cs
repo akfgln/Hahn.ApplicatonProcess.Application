@@ -10,7 +10,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
         IQueryable<Asset> Get();
         Asset Get(int id);
         Task<Asset> Create(AssetModel model);
-        Task<Asset> Update(AssetModel model);
+        Task<Asset> Update(int id, AssetModel model);
         Task Delete(int id);
     }
 }

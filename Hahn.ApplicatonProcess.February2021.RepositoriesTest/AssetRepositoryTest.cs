@@ -113,7 +113,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
                 Department = Domain.Models.Departments.MaintenanceStation,
             };
 
-            var result = await assetRepository.Update(model);
+            var result = await assetRepository.Update(asset.Id, model);
 
             result.Should().Be(asset);
             result.AssetName.Should().Be(asset.AssetName);
@@ -129,7 +129,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
         {
             Action create = () =>
             {
-                var result = assetRepository.Update(new AssetModel { Id = random.Next() }).Result;
+                var result = assetRepository.Update(random.Next(), new AssetModel { Id = random.Next() }).Result;
             };
 
             create.Should().Throw<NotFoundException>();

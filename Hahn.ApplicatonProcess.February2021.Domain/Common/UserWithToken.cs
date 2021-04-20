@@ -8,5 +8,6 @@ namespace Hahn.ApplicatonProcess.February2021.Domain.Common
         public string Token { get; set; }
         public Users User { get; set; }
         public DateTime ExpiresAt { get; set; }
+        public DateTime Expiration { get; set; }
     }
 }

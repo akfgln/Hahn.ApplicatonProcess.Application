@@ -9,8 +9,8 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
     {
         IQueryable<Users> Get();
         Users Get(int id);
-        Task<Users> Create(CreateUpdateUserModel model);
-        Task<Users> Update(int id, CreateUpdateUserModel model);
+        Task<Users> Create(CreateUserModel model);
+        Task<Users> Update(int id, UpdateUserModel model);
         Task Delete(int id);
     }
 }

@@ -41,9 +41,14 @@ namespace Hahn.ApplicatonProcess.February2021.Web
 
         private static void AddUow(IServiceCollection services, IConfiguration configuration)
         {
+            var connectionString = configuration["Data:main"];
+
             services.AddEntityFrameworkSqlServer();
+
             services.AddDbContext<HahnDbContext>(options =>
-            options.UseInMemoryDatabase("HahnDb"));
+                options.UseSqlServer(connectionString));
+            //services.AddDbContext<HahnDbContext>(options =>
+            //options.UseInMemoryDatabase("HahnDb"));
             services.AddScoped<IUnitOfWork>(ctx => new EFUnitOfWork(ctx.GetRequiredService<HahnDbContext>()));
         }
 

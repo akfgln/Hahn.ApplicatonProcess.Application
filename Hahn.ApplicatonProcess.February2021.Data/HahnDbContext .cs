@@ -59,8 +59,6 @@ namespace Hahn.ApplicatonProcess.February2021.Data
 
                 entity.ToTable("UserRoles");
 
-                entity.HasIndex(e => e.RoleId).HasName("FKlw289ua9wro1sxs07g3da0p1i");
-
                 entity.Property(e => e.UserRoleId).HasColumnName("UserRoleId");
 
                 entity.Property(e => e.IsActive)
