@@ -42,7 +42,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             Configurations.Setup(services, Configuration);
 
             ConfigureJwtBearer(services, Configuration);
-            services.AddSignalR();
             services.AddControllers()
             .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new StringEnumConverter()));
 
@@ -84,7 +83,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<ChatHub>("/hub");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

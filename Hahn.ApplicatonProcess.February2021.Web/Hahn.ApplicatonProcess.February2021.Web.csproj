@@ -48,7 +48,6 @@
 
   <ItemGroup>
     <Folder Include="Filters\Swagger\ResponseExamples\" />
-    <Folder Include="src\sass\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
 
