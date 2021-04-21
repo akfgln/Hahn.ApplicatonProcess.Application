@@ -70,7 +70,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
             var result = loginRepository.Authenticate(user.EMail, password);
 
             result.User.Should().Be(user);
-            result.Token.Should().Be(token);
+            result.Token.Should().Be("Bearer "+ token);
             result.Expiration.Should().BeCloseTo(expireTokenDate, 1000);
         }
 
