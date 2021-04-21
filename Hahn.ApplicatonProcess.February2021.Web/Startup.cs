@@ -42,6 +42,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             Configurations.Setup(services, Configuration);
 
             ConfigureJwtBearer(services, Configuration);
+            services.AddSignalR();
             services.AddControllers()
             .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new StringEnumConverter()));
 
@@ -57,6 +58,8 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             services.AddHttpClient();
             services.AddTransient<IValidator<AssetModel>, AssetModelValidator>();
 
+            services.AddRazorPages()
+                .AddRazorRuntimeCompilation();
             ConfigureSwagger(services);
         }
 
@@ -66,6 +69,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         {
             InitDatabase(app);
 
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             //app.UseHttpsRedirection();
 
@@ -80,6 +84,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/hub");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
