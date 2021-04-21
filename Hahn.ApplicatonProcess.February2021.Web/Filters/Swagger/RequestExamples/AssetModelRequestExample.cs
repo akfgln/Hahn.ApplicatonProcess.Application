@@ -13,8 +13,8 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Filters.Swagger.RequestExample
                 AssetName = "admin", 
                 CountryOfDepartment = "Germany", 
                 Department = Departments.Store3, 
-                IsBroken = null, 
-                PurchaseDate = DateTime.UtcNow 
+                IsBroken = false,
+                PurchaseDate = DateTime.UtcNow
             };
         }
     }

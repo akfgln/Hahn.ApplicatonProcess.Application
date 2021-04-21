@@ -1,9 +1,12 @@
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Hahn.ApplicatonProcess.February2021.Data;
 using Hahn.ApplicatonProcess.February2021.Data.Helpers;
 using Hahn.ApplicatonProcess.February2021.Domain.Common;
+using Hahn.ApplicatonProcess.February2021.Domain.Models;
 using Hahn.ApplicatonProcess.February2021.Web.Filters;
 using Hahn.ApplicatonProcess.February2021.Web.Filters.Swagger;
+using Hahn.ApplicatonProcess.February2021.Web.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -37,18 +40,53 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         public void ConfigureServices(IServiceCollection services)
         {
             Configurations.Setup(services, Configuration);
+
             ConfigureJwtBearer(services, Configuration);
             services.AddControllers()
-            .AddNewtonsoftJson(options =>
-        options.SerializerSettings.Converters.Add(new StringEnumConverter()));
-            services.AddMvc(options => { options.Filters.Add(new ApiExceptionFilter()); })
-                .AddFluentValidation(conf => conf.RegisterValidatorsFromAssemblyContaining<Startup>())
-               .AddJsonOptions(o =>
-               {
-                   o.JsonSerializerOptions.PropertyNamingPolicy = null;
-                   o.JsonSerializerOptions.DictionaryKeyPolicy = null;
-               });
+            .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new StringEnumConverter()));
 
+            services.AddMvc(options => { options.Filters.Add(new ApiExceptionFilter()); })
+                    .AddFluentValidation(conf => conf.RegisterValidatorsFromAssemblyContaining<Startup>())
+                       .AddJsonOptions(o =>
+                       {
+                           o.JsonSerializerOptions.PropertyNamingPolicy = null;
+                           o.JsonSerializerOptions.DictionaryKeyPolicy = null;
+                       });
+
+            /*Added for Country check if valid*/
+            services.AddHttpClient();
+            services.AddTransient<IValidator<AssetModel>, AssetModelValidator>();
+
+            ConfigureSwagger(services);
+        }
+
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hahn.ApplicatonProcess.February2021.Web v1"));
+            }
+
+            InitDatabase(app);
+
+            app.UseStaticFiles();
+            app.UseHttpsRedirection();
+
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
+
+        private static void ConfigureSwagger(IServiceCollection services)
+        {
             services.AddSwaggerGenNewtonsoftSupport();
             services.AddSwaggerGen(c =>
             {
@@ -91,31 +129,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             });
             services.AddSwaggerExamplesFromAssemblyOf<Startup>();
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hahn.ApplicatonProcess.February2021.Web v1"));
-            }
-
-            InitDatabase(app);
-
-            app.UseStaticFiles();
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
-
         private static void ConfigureJwtBearer(IServiceCollection services, IConfiguration conf)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, (o) =>

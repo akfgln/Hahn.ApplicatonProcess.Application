@@ -30,9 +30,10 @@ namespace Hahn.ApplicatonProcess.February2021.IntegrationTests.Asset
             var requestItem = new AssetModel
             {
                 AssetName = "TU_Update_" + random.Next(),
-                CountryOfDepartment = "TU_Update_" + random.Next().ToString(),
+                CountryOfDepartment = "United Kingdom of Great Britain and Northern Ireland",
                 Department = (Departments)(random.Next() % 5),
-                EMailAdressOfDepartment = "TU_Update_" + random.Next().ToString()
+                EMailAdressOfDepartment = "TU_Update_" + random.Next().ToString() + "@hahn.com",
+                PurchaseDate = DateTime.UtcNow
             };
 
             await client.PutAsync<AssetModel>($"api/Asset/{item.Id}", requestItem);

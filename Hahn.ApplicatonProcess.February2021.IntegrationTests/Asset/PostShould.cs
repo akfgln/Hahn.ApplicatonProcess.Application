@@ -27,10 +27,10 @@ namespace Hahn.ApplicatonProcess.February2021.IntegrationTests.Asset
         {
             var requestItem = new AssetModel
             {
-                AssetName = "TU_" + random.Next(),
-                CountryOfDepartment = random.Next().ToString(),
+                AssetName = "TU_New" + random.Next(),
+                CountryOfDepartment = "germany",
                 Department = (Departments)(random.Next() % 5),
-                EMailAdressOfDepartment = random.Next().ToString(),
+                EMailAdressOfDepartment = random.Next().ToString()+"@hahn.com",
                 PurchaseDate = DateTime.UtcNow
             };
 

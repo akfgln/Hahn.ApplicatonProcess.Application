@@ -99,7 +99,7 @@ namespace Hahn.ApplicatonProcess.February2021.IntegrationTests.Common
             response.EnsureSuccessStatusCode();
 
             var data = JsonConvert.DeserializeObject<UserWithTokenModel>(response.Content.ReadAsStringAsync().Result);
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + data.Token);
+            client.DefaultRequestHeaders.Add("Authorization", data.Token);
             return client;
         }
 

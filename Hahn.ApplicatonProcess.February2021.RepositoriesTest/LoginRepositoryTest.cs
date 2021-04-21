@@ -71,7 +71,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
 
             result.User.Should().Be(user);
             result.Token.Should().Be(token);
-            result.ExpiresAt.Should().BeCloseTo(expireTokenDate, 1000);
+            result.Expiration.Should().BeCloseTo(expireTokenDate, 1000);
         }
 
         [Fact]
