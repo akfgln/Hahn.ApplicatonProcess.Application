@@ -64,25 +64,61 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hahn.ApplicatonProcess.February2021.Web v1"));
-            }
-
             InitDatabase(app);
 
             app.UseStaticFiles();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                //{
+                //    HotModuleReplacement = true
+                //});
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hahn.ApplicatonProcess.February2021.Web v1"));
+
+                app.MapWhen(x => !x.Request.Path.Value.StartsWith("/swagger"), builder =>
+                {
+                    //builder.UseMvc(routes =>
+                    //{
+                    //    routes.MapRoute(
+                    //        "default",
+                    //        "{controller=Home}/{action=Index}/{id?}");
+                    //});
+                });
+            }
+            else
+            {
+                //app.UseMvc(routes =>
+                //{
+                //    routes.MapRoute(
+                //        "default",
+                //        "{controller=Home}/{action=Index}/{id?}");
+
+                //    //routes.MapSpaFallbackRoute(
+                //    //    "spa-fallback",
+                //    //    new { controller = "Home", action = "Index" });
+                //});
+                app.UseExceptionHandler("/Home/Error");
+            }
         }
 
         private static void ConfigureSwagger(IServiceCollection services)
