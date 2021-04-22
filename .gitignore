@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Hahn.ApplicatonProcess.February2021.Web/ClientApp/boot.js.map
+/Hahn.ApplicatonProcess.February2021.Web/ClientApp/boot.js
+/Hahn.ApplicatonProcess.February2021.Web/ClientApp/app/components/app/app.js.map
+/Hahn.ApplicatonProcess.February2021.Web/ClientApp/app/components/app/app.js
+/Hahn.ApplicatonProcess.February2021.Web/ClientApp/app/components/counter/counter.js.map
+/Hahn.ApplicatonProcess.February2021.Web/ClientApp/app/components/counter/counter.js
+/Hahn.ApplicatonProcess.February2021.Web/ClientApp/app/components/home/home.js.map
+/Hahn.ApplicatonProcess.February2021.Web/ClientApp/app/components/home/home.js
