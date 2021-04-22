@@ -8,13 +8,21 @@ const dirName = 'wwwroot/dist';
 module.exports = (env, argv) => {
     return {
         mode: argv.mode === "production" ? "production" : "development",
-        entry: ['./src/index.js', './src/sass/index.scss'],
+        entry: ['./src/app.ts'],
+        devtool: 'inline-source-map',
         output: {
             filename: bundleFileName + '.js',
             path: path.resolve(__dirname, dirName)
         },
         module: {
             rules: [
+                {
+                test: /\.tsx?$/,
+                use: [
+                    "ts-loader"
+                ],
+                exclude: /node_modules/
+            },
                 {
                     test: /\.s[c|a]ss$/,
                     use:
