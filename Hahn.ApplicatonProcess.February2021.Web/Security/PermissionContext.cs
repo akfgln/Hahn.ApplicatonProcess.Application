@@ -8,13 +8,13 @@ using System.Linq;
 
 namespace Hahn.ApplicatonProcess.February2021.Web.Security
 {
-    public class SecurityContext : ISecurityContext
+    public class PermissionContext : IPermissionContext
     {
         private readonly IHttpContextAccessor contextAccessor;
         private readonly IUnitOfWork uow;
         private Users user;
 
-        public SecurityContext(IHttpContextAccessor contextAccessor, IUnitOfWork uow)
+        public PermissionContext(IHttpContextAccessor contextAccessor, IUnitOfWork uow)
         {
             this.contextAccessor = contextAccessor;
             this.uow = uow;

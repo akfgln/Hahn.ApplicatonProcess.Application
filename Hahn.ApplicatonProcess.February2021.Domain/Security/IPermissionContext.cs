@@ -2,7 +2,7 @@
 
 namespace Hahn.ApplicatonProcess.February2021.Domain.Security
 {
-    public interface ISecurityContext
+    public interface IPermissionContext
     {
         Users User { get; }
         bool IsAdministrator { get; }

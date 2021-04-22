@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace Hahn.ApplicatonProcess.February2021.Web.Controllers.WEB
 {
@@ -10,8 +12,10 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers.WEB
         {
             return View();
         }
+
         public IActionResult Error()
         {
+            ViewData["RequestId"] = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
             return View();
         }
     }

@@ -20,7 +20,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
         private Mock<IUnitOfWork> uow;
         private List<Users> userList;
         private IUserRepository userRepository;
-        private Mock<ISecurityContext> securityContext;
+        private Mock<IPermissionContext> securityContext;
         private Random random;
         private List<Roles> roleList;
 
@@ -28,7 +28,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
         {
             random = new Random();
             uow = new Mock<IUnitOfWork>();
-            securityContext = new Mock<ISecurityContext>();
+            securityContext = new Mock<IPermissionContext>();
             roleList = new List<Roles>();
             userList = new List<Users>();
 

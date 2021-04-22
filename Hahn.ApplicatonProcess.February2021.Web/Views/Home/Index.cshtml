@@ -1,6 +1,10 @@
-﻿
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Home Page";
 }
 
-<h2 class="header">Home</h2>
+<div aurelia-app="boot">Loading...</div>
+
+@section scripts {
+    <script type="text/javascript" src="~/dist/vendor.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/dist/app.js" asp-append-version="true"></script>
+}

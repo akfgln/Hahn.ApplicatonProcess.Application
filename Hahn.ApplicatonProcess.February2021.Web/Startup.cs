@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +24,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
 
 namespace Hahn.ApplicatonProcess.February2021.Web
 {
@@ -98,28 +98,23 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hahn.ApplicatonProcess.February2021.Web v1"));
 
-                app.MapWhen(x => !x.Request.Path.Value.StartsWith("/swagger"), builder =>
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
-                    //builder.UseMvc(routes =>
-                    //{
-                    //    routes.MapRoute(
-                    //        "default",
-                    //        "{controller=Home}/{action=Index}/{id?}");
-                    //});
+                    HotModuleReplacement = true
                 });
             }
             else
             {
-                //app.UseMvc(routes =>
-                //{
-                //    routes.MapRoute(
-                //        "default",
-                //        "{controller=Home}/{action=Index}/{id?}");
+                app.UseMvc(routes =>
+                {
+                    routes.MapRoute(
+                        name: "default",
+                        template: "{controller=Home}/{action=Index}/{id?}");
 
-                //    //routes.MapSpaFallbackRoute(
-                //    //    "spa-fallback",
-                //    //    new { controller = "Home", action = "Index" });
-                //});
+                    routes.MapSpaFallbackRoute(
+                        name: "spa-fallback",
+                        defaults: new { controller = "Home", action = "Index" });
+                });
                 app.UseExceptionHandler("/Home/Error");
             }
         }

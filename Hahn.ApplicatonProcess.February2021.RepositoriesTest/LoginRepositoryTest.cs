@@ -21,7 +21,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
         private List<Users> userList;
         private ILoginRepository loginRepository;
         private Random random;
-        private Mock<ISecurityContext> securityContext;
+        private Mock<IPermissionContext> securityContext;
         private Mock<ITokenBuilder> tokenBuilder;
         private Mock<IUserRepository> userRepository;
 
@@ -35,7 +35,7 @@ namespace Hahn.ApplicatonProcess.February2021.RepositoriesTest
 
             tokenBuilder = new Mock<ITokenBuilder>(MockBehavior.Strict);
             userRepository = new Mock<IUserRepository>();
-            securityContext = new Mock<ISecurityContext>(MockBehavior.Strict);
+            securityContext = new Mock<IPermissionContext>(MockBehavior.Strict);
 
             loginRepository = new LoginRepository(uow.Object, tokenBuilder.Object, userRepository.Object, securityContext.Object);
         }

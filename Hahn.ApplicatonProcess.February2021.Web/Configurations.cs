@@ -8,7 +8,6 @@ using Hahn.ApplicatonProcess.February2021.Domain.Maps;
 using Hahn.ApplicatonProcess.February2021.Domain.Security;
 using Hahn.ApplicatonProcess.February2021.Web.Security;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,8 +17,8 @@ namespace Hahn.ApplicatonProcess.February2021.Web
     {
         public static void Setup(IServiceCollection services, IConfiguration configuration)
         {
-            AddUow(services, configuration);
-            AddRepositories(services);
+            ConfigureUow(services, configuration);
+            ConfigureRepositories(services);
             ConfigureAutoMapper(services);
             ConfigureAuth(services);
         }
@@ -28,7 +27,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ITokenBuilder, TokenBuilder>();
-            services.AddScoped<ISecurityContext, SecurityContext>();
+            services.AddScoped<IPermissionContext, PermissionContext>();
         }
 
         private static void ConfigureAutoMapper(IServiceCollection services)
@@ -39,20 +38,20 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             services.AddTransient<IAutoMapper, AutoMapperAdapter>();
         }
 
-        private static void AddUow(IServiceCollection services, IConfiguration configuration)
+        private static void ConfigureUow(IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration["Data:main"];
+            //var connectionString = configuration["Data:main"];
 
-            services.AddEntityFrameworkSqlServer();
+            //services.AddEntityFrameworkSqlServer();
 
-            services.AddDbContext<HahnDbContext>(options =>
-                options.UseSqlServer(connectionString));
             //services.AddDbContext<HahnDbContext>(options =>
-            //options.UseInMemoryDatabase("HahnDb"));
+            //    options.UseSqlServer(connectionString));
+            services.AddDbContext<HahnDbContext>(options =>
+            options.UseInMemoryDatabase("HahnDb"));
             services.AddScoped<IUnitOfWork>(ctx => new EFUnitOfWork(ctx.GetRequiredService<HahnDbContext>()));
         }
 
-        private static void AddRepositories(IServiceCollection services)
+        private static void ConfigureRepositories(IServiceCollection services)
         {
             var exampleProcessorType = typeof(AssetRepository);
             var types = (from t in exampleProcessorType.GetTypeInfo().Assembly.GetTypes()

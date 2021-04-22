@@ -16,9 +16,9 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
         private readonly IUnitOfWork uow;
         private readonly ITokenBuilder tokenBuilder;
         private readonly IUserRepository userRepository;
-        private readonly ISecurityContext securityContext;
+        private readonly IPermissionContext securityContext;
 
-        public LoginRepository(IUnitOfWork uow, ITokenBuilder tokenBuilder, IUserRepository userRepository, ISecurityContext securityContext)
+        public LoginRepository(IUnitOfWork uow, ITokenBuilder tokenBuilder, IUserRepository userRepository, IPermissionContext securityContext)
         {
             this.uow = uow;
             this.tokenBuilder = tokenBuilder;

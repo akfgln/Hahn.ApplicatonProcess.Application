@@ -1,51 +1,44 @@
 ﻿const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
+const { AureliaPlugin } = require('aurelia-webpack-plugin');
+const bundleOutputDir = './wwwroot/dist';
 
-const bundleFileName = 'bundle';
-const dirName = 'wwwroot/dist';
-
-module.exports = (env, argv) => {
-    return {
-        mode: argv.mode === "production" ? "production" : "development",
-        entry: ['./src/app.ts'],
-        devtool: 'inline-source-map',
+module.exports = (env) => {
+    const isDevBuild = !(env && env.prod);
+    return [{
+        stats: { modules: false },
+        entry: { 'app': 'aurelia-bootstrapper' },
+        resolve: {
+            extensions: ['.ts', '.js'],
+            modules: ['ClientApp', 'node_modules'],
+        },
         output: {
-            filename: bundleFileName + '.js',
-            path: path.resolve(__dirname, dirName)
+            path: path.resolve(bundleOutputDir),
+            publicPath: 'dist/',
+            filename: '[name].js'
         },
         module: {
             rules: [
-                {
-                test: /\.tsx?$/,
-                use: [
-                    "ts-loader"
-                ],
-                exclude: /node_modules/
-            },
-                {
-                    test: /\.s[c|a]ss$/,
-                    use:
-                        [
-                            'style-loader',
-                            {
-                                loader: MiniCssExtractPlugin.loader,
-                                options: {
-                                    esModule: false,
-                                },
-                            },
-                            'css-loader',
-                            "postcss-loader",
-                            'sass-loader'
-                        ]
-                }
+                { test: /\.ts$/i, include: /ClientApp/, use: 'ts-loader?silent=true' },
+                { test: /\.html$/i, use: 'html-loader' },
+                { test: /\.css$/i, use: isDevBuild ? 'css-loader' : 'css-loader?minimize' },
+                { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
             ]
         },
         plugins: [
-            new CleanWebpackPlugin(),
-            new MiniCssExtractPlugin({
-                filename: bundleFileName + '.css'
+            new webpack.DefinePlugin({ IS_DEV_BUILD: JSON.stringify(isDevBuild) }),
+            new webpack.DllReferencePlugin({
+                context: __dirname,
+                manifest: require('./wwwroot/dist/vendor-manifest.json')
+            }),
+            new AureliaPlugin({ aureliaApp: 'boot' })
+        ].concat(isDevBuild ? [
+            new webpack.SourceMapDevToolPlugin({
+                filename: '[file].map', // Remove this line if you prefer inline source maps
+                moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]')  // Point sourcemap entries to the original file locations on disk
             })
-        ]
-    };
-};
+        ] : [
+                new webpack.optimize.UglifyJsPlugin()
+            ])
+    }];
+}

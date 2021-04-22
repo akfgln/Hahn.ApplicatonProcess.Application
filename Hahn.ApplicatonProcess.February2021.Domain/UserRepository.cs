@@ -13,9 +13,9 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
     public class UserRepository : IUserRepository
     {
         private readonly IUnitOfWork uow;
-        private readonly ISecurityContext securityContext;
+        private readonly IPermissionContext securityContext;
 
-        public UserRepository(IUnitOfWork uow, ISecurityContext securityContext)
+        public UserRepository(IUnitOfWork uow, IPermissionContext securityContext)
         {
             this.uow = uow;
             this.securityContext = securityContext;
