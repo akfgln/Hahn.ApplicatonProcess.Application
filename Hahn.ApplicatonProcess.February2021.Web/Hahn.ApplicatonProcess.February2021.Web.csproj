@@ -26,7 +26,6 @@
     <None Remove="ClientApp\app\components\home\home.js.map" />
     <None Remove="ClientApp\app\components\login\login.js" />
     <None Remove="ClientApp\app\components\login\login.js.map" />
-    <None Remove="ClientApp\app\components\login\login.ts" />
     <None Remove="ClientApp\app\components\navmenu\navmenu.js" />
     <None Remove="ClientApp\app\components\navmenu\navmenu.js.map" />
     <None Remove="ClientApp\app\components\services\auth-filter.js" />
@@ -35,6 +34,8 @@
     <None Remove="ClientApp\app\components\services\auth-service.js.map" />
     <None Remove="ClientApp\app\components\services\authorization-step.js" />
     <None Remove="ClientApp\app\components\services\authorization-step.js.map" />
+    <None Remove="ClientApp\app\components\services\flash-message-service.js" />
+    <None Remove="ClientApp\app\components\services\flash-message-service.js.map" />
     <None Remove="ClientApp\boot.js" />
     <None Remove="ClientApp\boot.js.map" />
   </ItemGroup>

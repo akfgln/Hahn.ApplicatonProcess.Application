@@ -26,5 +26,9 @@
     "url-loader": "^0.5.8",
     "webpack": "^2.3.3",
     "webpack-hot-middleware": "^2.18.0"
+  },
+  "dependencies": {
+    "aurelia-validation": "^2.0.0-rc2",
+    "toastr": "^2.1.4"
   }
 }

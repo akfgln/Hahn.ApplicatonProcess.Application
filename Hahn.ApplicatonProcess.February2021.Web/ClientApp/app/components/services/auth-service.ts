@@ -10,7 +10,6 @@ export class AuthService {
     }
 
     logIn(userName: string, password: string) {
-
         return this.http.fetch('api/Login/Authenticate', {
             method: 'post',
             body: json({ email: userName, password: password })
@@ -90,12 +89,4 @@ export class AuthService {
             }
         };
     }
-}
-
-function status(response: any) {
-    debugger;
-    //if (!res.ok) {
-    //    throw new Error(res.statusText);
-    //}
-    return response.json();
 }
