@@ -1,11 +1,26 @@
 import { Aurelia, PLATFORM } from 'aurelia-framework';
+import { inject } from "aurelia-framework";
 import { Router, RouterConfiguration } from 'aurelia-router';
+import { AuthService } from "../services/auth-service";
+import { AuthorizeStep } from "../services/authorization-step";
+import { HttpClient } from "aurelia-fetch-client";
 
+@inject(AuthService, HttpClient)
 export class App {
+    authService: AuthService;
     router: Router | undefined;
 
+    constructor(authService: AuthService, http:HttpClient) {
+        this.authService = authService;
+        http.configure(config => {
+          config
+            .withBaseUrl('/')
+            .withInterceptor(this.authService.tokenInterceptor);
+        });
+      }
+
     configureRouter(config: RouterConfiguration, router: Router) {
-        config.title = 'Aurelia';
+        config.title = 'Hahn Applicaton';
         config.map([{
             route: [ '', 'home' ],
             name: 'home',
@@ -27,8 +42,21 @@ export class App {
             moduleId: PLATFORM.moduleName('../fetchdata/fetchdata'),
             nav: true,
             title: 'Fetch data'
-        }]);
+        },
+      {
+        route: "login",
+        name: "login",
+        settings: { icon: 'user' },
+        moduleId: PLATFORM.moduleName('../login/login'),
+        title: "Login",
+        nav: true,
+      }]);
 
         this.router = router;
+
+    let step = new AuthorizeStep(this.authService);
+
+    config.addAuthorizeStep(step);
+
     }
 }

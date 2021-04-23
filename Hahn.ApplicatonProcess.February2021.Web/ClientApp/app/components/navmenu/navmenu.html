@@ -1,5 +1,6 @@
 <template bindable="router">
     <require from="./navmenu.css"></require>
+    <require from="../services/auth-filter"></require>
     <div class="main-nav">
         <div class="navbar navbar-inverse">
             <div class="navbar-header">
@@ -14,10 +15,25 @@
             <div class="clearfix"></div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li repeat.for = "row of router.navigation" class="${ row.isActive ? 'link-active' : '' }" >
-                        <a href.bind = "row.href">
+                    <li repeat.for="row of router.navigation | authFilter" class="${ row.isActive ? 'link-active' : '' }">
+                        <a href.bind="row.href">
                             <span class="glyphicon glyphicon-${ row.settings.icon }"></span> ${ row.title }
                         </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           data-toggle="dropdown" href="#"
+                           role="button"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user-circle-o" aria-hidden="true">
+                            </i> ${user.name}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#"
+                               click.delegate="logOut()">
+                                logout
+                            </a>
+                        </div>
                     </li>
                 </ul>
             </div>
