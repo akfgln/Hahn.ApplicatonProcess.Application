@@ -1,16 +1,19 @@
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { ValidationControllerFactory, ValidationRules, ValidationController } from 'aurelia-validation';
-import { AuthService } from '../services/auth-service';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { AuthService } from '../services/auth-service';
+import {BootstrapFormRenderer} from '../services/bootstrap-form-renderer';
 
-@inject(AuthService, ValidationControllerFactory, EventAggregator, Router)
+@inject(AuthService, ValidationControllerFactory, 
+EventAggregator, Router)
 export class Login {
     authService: AuthService;
     controller: ValidationController;
     email: string;
     eventAggregator: EventAggregator;
     errorMessage: string;
+    loginRules: any;
     password: string;
     server_side_errors: string[];
     router: Router;
@@ -23,28 +26,32 @@ export class Login {
     ) {
         this.authService = authService;
         this.controller = controllerFactory.createForCurrentScope();
-        this.email = "";
+        this.email = "admin@hahn.com";
         this.eventAggregator = eventAggregator;
         this.errorMessage = "";
-        this.password = "";
+        this.password = "admin";
         this.server_side_errors = [];
         this.router = router;
 
-        var loginRules = ValidationRules
+        this.loginRules = ValidationRules
             .ensure((a: Login) => a.password).required()
             .ensure((a: Login) => a.email).required().email()
             .rules;
-        this.controller.addObject(this, loginRules);
+        this.controller.addObject(this, this.loginRules);
+
+        this.controller.addRenderer(new BootstrapFormRenderer());
     }
 
     logIn() {
         this.controller.validate()
             .then(result => {
+                debugger;
                 if (result.valid) {
                     this.authService.logIn(this.email,
                         this.password)
                         .then(tokenResult => {
                             if (tokenResult.success) {
+                                this.eventAggregator.publish("ewFlashSuccess", "Authentication is completed.")
                                 this.server_side_errors = [];
                                 this.router.navigateToRoute('home');
                             }
@@ -52,7 +59,9 @@ export class Login {
                                 this.server_side_errors = tokenResult.errors;
                             }
                         });
-                }
+                } else {
+                    this.eventAggregator.publish("ewFlashError","Authentication is failed.")
+                }      
             });
     }
 }
