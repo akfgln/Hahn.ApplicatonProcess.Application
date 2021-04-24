@@ -52,7 +52,6 @@
   <ItemGroup>
     <None Include="ClientApp\app\components\app\app.ts" />
     <None Include="ClientApp\app\components\counter\counter.ts" />
-    <None Include="ClientApp\app\components\fetchdata\fetchdata.ts" />
     <None Include="ClientApp\app\components\home\home.ts" />
     <None Include="ClientApp\boot.ts" />
     <None Include="Views\_ViewImports.cshtml" />

@@ -41,12 +41,12 @@ export class App {
             nav: true,
             title: 'Counter'
         }, {
-            route: 'fetch-data',
-            name: 'fetchdata',
+            route: 'asset',
+            name: 'asset',
             settings: { icon: 'th-list' },
-            moduleId: PLATFORM.moduleName('../fetchdata/fetchdata'),
+            moduleId: PLATFORM.moduleName('../asset/asset'),
             nav: true,
-            title: 'Fetch data'
+            title: 'Assets'
         },
         {
             route: "login",

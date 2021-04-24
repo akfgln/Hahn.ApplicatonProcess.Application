@@ -1,11 +1,12 @@
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
+import { HttpClient } from "aurelia-fetch-client";
 import { ValidationControllerFactory, ValidationRules, ValidationController } from 'aurelia-validation';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { AuthService } from '../services/auth-service';
 import {BootstrapFormRenderer} from '../services/bootstrap-form-renderer';
 
-@inject(AuthService, ValidationControllerFactory, 
+@inject(AuthService, HttpClient, ValidationControllerFactory, 
 EventAggregator, Router)
 export class Login {
     authService: AuthService;
@@ -13,6 +14,7 @@ export class Login {
     email: string;
     eventAggregator: EventAggregator;
     errorMessage: string;
+    http: HttpClient;
     loginRules: any;
     password: string;
     server_side_errors: string[];
@@ -20,6 +22,7 @@ export class Login {
 
     constructor(
         authService: AuthService,
+        http: HttpClient,
         controllerFactory: ValidationControllerFactory,
         eventAggregator: EventAggregator,
         router: Router
@@ -29,6 +32,7 @@ export class Login {
         this.email = "admin@hahn.com";
         this.eventAggregator = eventAggregator;
         this.errorMessage = "";
+        this.http = http;
         this.password = "admin";
         this.server_side_errors = [];
         this.router = router;
@@ -51,8 +55,16 @@ export class Login {
                         this.password)
                         .then(tokenResult => {
                             if (tokenResult.success) {
+                                debugger;
                                 this.eventAggregator.publish("ewFlashSuccess", "Authentication is completed.")
                                 this.server_side_errors = [];
+
+                                this.http.configure(config => {
+                                    config
+                                        .withBaseUrl('/')
+                                        .withInterceptor(this.authService.tokenInterceptor);
+                                });
+
                                 this.router.navigateToRoute('home');
                             }
                             else {

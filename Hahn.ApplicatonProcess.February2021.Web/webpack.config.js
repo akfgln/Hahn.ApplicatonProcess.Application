@@ -1,4 +1,4 @@
-﻿const path = require('path');
+const path = require('path');
 const webpack = require('webpack');
 const { AureliaPlugin } = require('aurelia-webpack-plugin');
 const bundleOutputDir = './wwwroot/dist';
@@ -38,7 +38,7 @@ module.exports = (env) => {
                 moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]')  // Point sourcemap entries to the original file locations on disk
             })
         ] : [
-                new webpack.optimize.UglifyJsPlugin()
-            ])
+            new webpack.optimize.UglifyJsPlugin()
+        ])
     }];
 }

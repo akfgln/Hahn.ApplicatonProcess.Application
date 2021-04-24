@@ -1,0 +1,30 @@
+<template>
+    <h1>Assets</h1>
+
+    <p if.bind="!assets"><em>Loading...</em></p>
+
+    <table if.bind="assets" class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Asset Name</th>
+                <th>Department</th>
+                <th>Country Of Department</th>
+                <th>EMail Adress Of Department</th>
+                <th>Purchase Date</th>
+                <th>Broken</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="asset of assets">
+                <td>${ asset.id }</td>
+                <td>${ asset.assetName }</td>
+                <td>${ asset.department }</td>
+                <td>${ asset.countryOfDepartment }</td>
+                <td>${ asset.eMailAdressOfDepartment }</td>
+                <td>${ asset.purchaseDate }</td>
+                <td>${ asset.isBroken }</td>
+            </tr>
+        </tbody>
+    </table>
+</template>
