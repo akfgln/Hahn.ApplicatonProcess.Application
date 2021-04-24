@@ -16,18 +16,30 @@ export class AuthService {
         })
             .then(response => response.json())
             .then(tokenResult => {
-                var result = {
+                var result: any = {
                     success: false,
-                    message: ""
+                    token: "",
+                    errors: []
                 };
-                if (tokenResult.Email) {
-                    result.message = tokenResult.Email.join(", ")
+                debugger;
+                if (typeof tokenResult === 'string' || tokenResult instanceof String)
+                    result.errors.push(tokenResult)
+                else {
+                    if (tokenResult.Email) {
+                        result.errors.push(...tokenResult.Email);
+                    }
+                    if (tokenResult.Password) {
+                        result.errors.push(...tokenResult.Password);
+                    }
+
                 }
-                if (tokenResult.Password) {
-                    result.message = tokenResult.Email.join(", ")
+                if (tokenResult.token) {
+                    result.success = true
+                    window.localStorage.setItem("token", tokenResult.token);
+                } else {
+                    result.errors.push("Authentication is failed.")
                 }
-                window.localStorage.setItem("token", tokenResult.token);
-                return tokenResult;
+                return result;
             })
             .catch(error => {
                 debugger;

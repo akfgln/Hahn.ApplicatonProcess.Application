@@ -8,6 +8,7 @@
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="wwwroot\dist\**" />
@@ -45,9 +46,6 @@
     <TypeScriptCompile Remove="ClientApp\app\components\fetchdata\fetchdata.ts" />
     <TypeScriptCompile Remove="ClientApp\app\components\home\home.ts" />
     <TypeScriptCompile Remove="ClientApp\boot.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="npm-shrinkwrap.json" />
   </ItemGroup>
 
   <ItemGroup>

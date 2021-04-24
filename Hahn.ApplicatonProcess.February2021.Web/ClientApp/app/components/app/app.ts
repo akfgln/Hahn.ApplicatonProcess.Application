@@ -6,9 +6,7 @@ import { AuthService } from "../services/auth-service";
 import { AuthorizeStep } from "../services/authorization-step";
 import { FlashMessageService } from '../services/flash-message-service';
 
-@inject(AuthService, HttpClient
-    , FlashMessageService
-)
+@inject(AuthService, HttpClient, FlashMessageService)
 export class App {
     authService: AuthService;
     router: Router | undefined;

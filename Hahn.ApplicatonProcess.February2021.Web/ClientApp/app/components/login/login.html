@@ -2,7 +2,7 @@
     <div slot="header"><h1 class="brand-heading">Hahn</h1></div>
     <div slot="form" class="container">
         <div class="row justify-content-center align-items-center">
-            <div class="card">
+            <div class="card" >
                 <div class="card-header">
                     <h1>Login</h1>
                 </div>
@@ -13,7 +13,7 @@
                         <input type="text"
                                class="form-control"
                                id="email"
-                               value.bind="email"
+                               value.bind="email" required
                                placeholder="email">
                     </div>
 
@@ -22,21 +22,25 @@
                         <input type="password"
                                class="form-control"
                                id="password"
-                                value.bind="password"
+                               value.bind="password" required
                                placeholder="password">
                     </div>
+                    <ul if.bind="controller.errors">
+                        <li repeat.for="error of controller.errors">
+                            ${error.message}
+                        </li>
+                    </ul>
+                    <ul if.bind="server_side_errors">
+                        <li repeat.for="error of server_side_errors">
+                            ${error}
+                        </li>
+                    </ul>
                     <button type="submit" class="btn btn-success"
                             disabled.bind="!(email.length > 0 && password.length > 0)">
                         login
                     </button>
 
                 </form>
-                <div class="card card-outline-danger text-center"
-                     show.bind="errorMessage.length > 0">
-                    <div class="card-block  login-error">
-                        ${errorMessage}
-                    </div>
-                </div>
             </div>
         </div>
     </div>

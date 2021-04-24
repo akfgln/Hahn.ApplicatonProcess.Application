@@ -381,3 +381,5 @@ FodyWeavers.xsd
 /Hahn.ApplicatonProcess.February2021.Web/ClientApp/app/components/login/login.js
 /Hahn.ApplicatonProcess.February2021.Web/ClientApp/app/components/fetchdata/fetchdata.js.map
 /Hahn.ApplicatonProcess.February2021.Web/ClientApp/app/components/fetchdata/fetchdata.js
+/Hahn.ApplicatonProcess.February2021.Web/ClientApp/app/components/services/flash-message-service.js.map
+/Hahn.ApplicatonProcess.February2021.Web/ClientApp/app/components/services/flash-message-service.js

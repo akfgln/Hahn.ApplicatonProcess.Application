@@ -1,49 +1,58 @@
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-//import { ValidationController, ValidationControllerFactory, ValidationRules } from 'aurelia-validation';
+import { ValidationControllerFactory, ValidationRules, ValidationController } from 'aurelia-validation';
 import { AuthService } from '../services/auth-service';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
-@inject(Router, //ValidationControllerFactory,
-    AuthService, EventAggregator)
+@inject(AuthService, ValidationControllerFactory, EventAggregator, Router)
 export class Login {
+    authService: AuthService;
+    controller: ValidationController;
+    email: string;
     eventAggregator: EventAggregator;
     errorMessage: string;
     password: string;
-    email: string;
-    authService: AuthService;
+    server_side_errors: string[];
     router: Router;
-    //controller: ValidationController;
 
-    constructor(router: Router, authService: AuthService//, controllerFactory: ValidationControllerFactory
-    ,eventAggregator: EventAggregator ) {
+    constructor(
+        authService: AuthService,
+        controllerFactory: ValidationControllerFactory,
+        eventAggregator: EventAggregator,
+        router: Router
+    ) {
         this.authService = authService;
-        this.router = router;
+        this.controller = controllerFactory.createForCurrentScope();
+        this.email = "";
+        this.eventAggregator = eventAggregator;
         this.errorMessage = "";
         this.password = "";
-        this.email = "";
-this.eventAggregator = eventAggregator;
-        //this.controller = controllerFactory.createForCurrentScope();
+        this.server_side_errors = [];
+        this.router = router;
+
+        var loginRules = ValidationRules
+            .ensure((a: Login) => a.password).required()
+            .ensure((a: Login) => a.email).required().email()
+            .rules;
+        this.controller.addObject(this, loginRules);
     }
 
     logIn() {
-        this.authService.logIn(this.email,
-            this.password)
-            .then(tokenResult => {
-                if (tokenResult.success) {
-                    this.errorMessage = "";
-                    this.router.navigateToRoute('home');
-                }
-                else {
-                    this.errorMessage = tokenResult.message;
+        this.controller.validate()
+            .then(result => {
+                if (result.valid) {
+                    this.authService.logIn(this.email,
+                        this.password)
+                        .then(tokenResult => {
+                            if (tokenResult.success) {
+                                this.server_side_errors = [];
+                                this.router.navigateToRoute('home');
+                            }
+                            else {
+                                this.server_side_errors = tokenResult.errors;
+                            }
+                        });
                 }
             });
     }
 }
-
-//ValidationRules
-//    .ensure((a:Login) => a.password).required()
-//    .ensure((a:Login) => a.email).required().email()
-//    .on(Login);
-
-
