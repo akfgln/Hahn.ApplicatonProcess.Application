@@ -92,6 +92,7 @@ export class AuthService {
         let auth = this;
         return {
             request(request: any) {
+                debugger;
                 let token = auth.getToken();
                 if (token) {
                     request.headers

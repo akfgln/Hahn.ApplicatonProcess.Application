@@ -3,20 +3,20 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>278b6dc3-6a46-4078-98ee-d295d4014c5a</UserSecretsId>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <TypeScriptToolsVersion>4.2</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
+  
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
+  
   <ItemGroup>
-    <Compile Remove="wwwroot\dist\**" />
-    <Content Remove="wwwroot\dist\**" />
-    <EmbeddedResource Remove="wwwroot\dist\**" />
-    <None Remove="wwwroot\dist\**" />
     <TypeScriptCompile Remove="node_modules\**" />
-    <TypeScriptCompile Remove="wwwroot\dist\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="ClientApp\app\components\app\app.js" />
@@ -40,14 +40,7 @@
     <None Remove="ClientApp\boot.js" />
     <None Remove="ClientApp\boot.js.map" />
   </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Remove="ClientApp\app\components\app\app.ts" />
-    <TypeScriptCompile Remove="ClientApp\app\components\counter\counter.ts" />
-    <TypeScriptCompile Remove="ClientApp\app\components\fetchdata\fetchdata.ts" />
-    <TypeScriptCompile Remove="ClientApp\app\components\home\home.ts" />
-    <TypeScriptCompile Remove="ClientApp\boot.ts" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\Hahn.ApplicatonProcess.February2021.Domain\Hahn.ApplicatonProcess.February2021.Domain.csproj" />
   </ItemGroup>
@@ -64,6 +57,8 @@
     <None Include="ClientApp\boot.ts" />
     <None Include="Views\_ViewImports.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
+    <None Include="wwwroot\dist\89889688147bd7575d6327160d64e760.svg" />
+    <None Include="wwwroot\dist\vendor.js" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
