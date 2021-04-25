@@ -1,14 +1,18 @@
 import { HttpClient } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
 import { ValidationControllerFactory, ValidationRules, ValidationController } from 'aurelia-validation';
 import { BootstrapFormRenderer } from '../services/bootstrap-form-renderer';
-import { EventAggregator } from 'aurelia-event-aggregator';
+import { AssetService } from '../services/asset-service'
+import { error } from 'jquery';
 
-@inject(ValidationControllerFactory,
-        EventAggregator,
-        HttpClient
+@inject(AssetService,
+    ValidationControllerFactory,
+    EventAggregator,
+    HttpClient
 )
 export class CreateAsset {
+    assetService: AssetService;
     controller: ValidationController;
     createRules: any;
     eventAggregator: EventAggregator;
@@ -26,10 +30,12 @@ export class CreateAsset {
     isBroken: boolean | undefined;
 
     constructor(
+        assetService: AssetService,
         controllerFactory: ValidationControllerFactory,
         eventAggregator: EventAggregator,
         http: HttpClient
     ) {
+        this.assetService = assetService;
         this.controller = controllerFactory.createForCurrentScope();
 
         this.createRules = ValidationRules
@@ -51,8 +57,38 @@ export class CreateAsset {
         this.controller.validate()
             .then(result => {
                 if (result.valid) {
+                    this.assetService.createAsset({
+                        id: 0,
+                        assetName: this.assetName,
+                        department: this.department,
+                        countryOfDepartment: this.countryOfDepartment,
+                        eMailAdressOfDepartment: this.eMailAdressOfDepartment,
+                        purchaseDate: this.purchaseDate,
+                        isBroken: this.isBroken
+                    })
+                        .then(result => {
+                            debugger;
+                            if (result.success) {
+                                debugger;
+                                this.eventAggregator.publish("ewFlashSuccess", "Asset is saved.")
+                                this.server_side_errors = [];
 
-                    this.eventAggregator.publish("ewFlashSuccess", "Asset is saved.")
+                                this.assetName = "";
+                                this.department = "";
+                                this.countryOfDepartment = "";
+                                this.eMailAdressOfDepartment = "";
+                                this.purchaseDate = new Date();
+                                this.isBroken = false;
+
+                            }
+                            else {
+                                this.server_side_errors = result.errors;
+                            }
+                        }).catch(error => {
+                            console.log(error)
+                            this.eventAggregator.publish("ewFlashError", "An error occured.")
+                        });
+
                 } else {
                     this.eventAggregator.publish("ewFlashError", "Asset is not saved.")
                 }

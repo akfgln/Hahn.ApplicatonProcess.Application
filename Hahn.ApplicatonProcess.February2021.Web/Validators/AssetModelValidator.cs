@@ -19,8 +19,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Validators
                .WithMessage("AssetName must be at least 5 Characters");
 
             RuleFor(x => x.Department)
-                .NotEmpty()
-                .WithMessage("Department is required")
                 .IsInEnum()
                 .WithMessage("Department must be in enum");
 

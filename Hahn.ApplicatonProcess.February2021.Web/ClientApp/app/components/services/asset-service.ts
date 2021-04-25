@@ -1,5 +1,6 @@
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
+import { isArray } from 'jquery';
 
 @inject(HttpClient)
 export class AssetService {
@@ -30,11 +31,23 @@ export class AssetService {
         })
             .then(response => response.json())
             .then(data => {
+                debugger;
                 var result: any = {
                     success: false,
+                    data: {},
                     errors: []
                 };
-               
+                if (typeof data === 'string' || data instanceof String)
+                    result.errors.push(data)
+                else if (!data.id) {
+                    for (var key in data) {
+                        var value = data[key];
+                        result.errors.push(...value);
+                    }
+                } else {
+                    result.data = data;
+                    result.success = true;
+                }
                 return result;
             })
             .catch(error => {
@@ -46,7 +59,7 @@ export class AssetService {
     }
 
     getAsset(id) {
-        return this.http.fetch('api/Asset/'+ id)
+        return this.http.fetch('api/Asset/' + id)
             .then(result => result.json())
             .then(data => {
                 return data;
@@ -59,7 +72,7 @@ export class AssetService {
     }
 
     deleteAsset(id) {
-        return this.http.fetch('api/Asset/'+id, {
+        return this.http.fetch('api/Asset/' + id, {
             method: 'delete'
         })
             .then(response => response.json())
@@ -80,7 +93,7 @@ export class AssetService {
     }
 
     updateClient(id, asset) {
-        return this.http.fetch('api/Asset/'+id, {
+        return this.http.fetch('api/Asset/' + id, {
             method: 'put',
             body: json(asset)
         })
