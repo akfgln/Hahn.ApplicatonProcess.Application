@@ -21,7 +21,7 @@ export class AssetService {
                 var result: any = {
                     success: false,
                     data: {},
-                    errors: ["An error occured."]
+                    errors: ["An error occurred."]
                 };
                 console.log(error);
                 return result;
@@ -58,7 +58,7 @@ export class AssetService {
                 var result: any = {
                     success: false,
                     data: {},
-                    errors: ["An error occured."]
+                    errors: ["An error occurred."]
                 };
                 console.log(error);
                 return result;
@@ -75,7 +75,7 @@ export class AssetService {
                 var result: any = {
                     success: false,
                     data: {},
-                    errors: ["An error occured."]
+                    errors: ["An error occurred."]
                 };
                 console.log(error);
                 return result;
@@ -86,20 +86,30 @@ export class AssetService {
         return this.http.fetch('api/Asset/' + id, {
             method: 'delete'
         })
-            .then(response => response.json())
-            .then(data => {
+            .then(function (response) {
+                debugger;
                 var result: any = {
                     success: false,
                     errors: []
                 };
+                console.log(response.status);
+                if (!response.ok) {
+                    result.errors.push("An error occurred.");
+                } else {
+                    result.success = true;
+                }
 
                 return result;
             })
             .catch(error => {
-
-                //TODO message
+                debugger;
+                var result: any = {
+                    success: false,
+                    data: {},
+                    errors: ["An error occurred."]
+                };
                 console.log(error);
-                return;
+                return result;
             });
     }
 
@@ -133,7 +143,44 @@ export class AssetService {
                 var result: any = {
                     success: false,
                     data: {},
-                    errors: ["An error occured."]
+                    errors: ["An error occurred."]
+                };
+                console.log(error);
+                return result;
+            });
+    }
+
+    getCountries() {
+        return this.http.fetch('api/Asset/GetCountries')
+            .then(function (response) {
+                debugger;
+                var result: any = {
+                    success: false,
+                    errors: []
+                };
+                console.log(response.status);
+                if (!response.ok) {
+                    result.errors.push("An error occurred.");
+                } else {
+                    result.success = true;
+                }
+
+                return response.json();
+            })
+            .then(data => {
+                var result: any = {
+                    success: true,
+                    data: data,
+                    errors: []
+                };
+                return result;
+            })
+            .catch(error => {
+                debugger;
+                var result: any = {
+                    success: false,
+                    data: {},
+                    errors: ["An error occurred when receiving the data of the countries."]
                 };
                 console.log(error);
                 return result;

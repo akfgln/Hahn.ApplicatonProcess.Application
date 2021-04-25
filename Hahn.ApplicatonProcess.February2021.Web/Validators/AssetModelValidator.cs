@@ -44,8 +44,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Validators
         {
             var request = new HttpRequestMessage(HttpMethod.Get,
           $"https://restcountries.eu/rest/v2/name/{arg}?fullText=true");
-            //request.Headers.Add("Accept", "application/vnd.github.v3+json");
-            //request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
 
             var client = _clientFactory.CreateClient();
             var response = client.Send(request);

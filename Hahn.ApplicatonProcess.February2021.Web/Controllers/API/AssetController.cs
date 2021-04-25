@@ -6,8 +6,10 @@ using Hahn.ApplicatonProcess.February2021.Domain.Models;
 using Hahn.ApplicatonProcess.February2021.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
@@ -17,11 +19,16 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
     public class AssetController : Controller
     {
         private readonly IAssetRepository assetRepository;
+        private readonly IHttpClientFactory clientFactory;
         private readonly IAutoMapper mapper;
 
-        public AssetController(IAssetRepository assetRepository, IAutoMapper mapper)
+        public AssetController(
+            IAssetRepository assetRepository, 
+            IHttpClientFactory clientFactory, 
+            IAutoMapper mapper)
         {
             this.assetRepository = assetRepository;
+            this.clientFactory = clientFactory;
             this.mapper = mapper;
         }
 
@@ -65,6 +72,20 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
         {
             await assetRepository.Delete(id);
             return StatusCode((int)HttpStatusCode.NoContent);
+        }
+
+        [HttpGet("GetCountries")]
+        public ActionResult<IList<CountryModel>> GetCountries()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get,
+          $"https://restcountries.eu/rest/v2/all");
+
+            var client = this.clientFactory.CreateClient();
+            var response = client.Send(request);
+            var responseString =  response.Content.ReadAsStringAsync().Result;
+            var model = Newtonsoft.Json.JsonConvert.DeserializeObject<IList<CountryModel>>(responseString);
+
+            return Ok(model);
         }
     }
 }

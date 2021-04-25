@@ -29,9 +29,12 @@
                 <td>${ asset.isBroken }</td>
                 <td>
                     <a route-href="route: assetdetail;
-                                   params.bind: {id:asset.id}">
+                                   params.bind: {id:asset.id}" class="btn btn-info">
                         Get
                     </a>
+                    <button type="button" class="btn btn-danger" click.trigger="delete(asset)">
+                        Delete
+                    </button>
                 </td>
             </tr>
         </tbody>

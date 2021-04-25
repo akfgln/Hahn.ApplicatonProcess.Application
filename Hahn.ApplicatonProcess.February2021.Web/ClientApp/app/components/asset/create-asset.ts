@@ -13,6 +13,7 @@ import { AssetService } from '../services/asset-service'
 export class CreateAsset {
     assetService: AssetService;
     controller: ValidationController;
+    countries: any[] | undefined;
     createRules: any;
     eventAggregator: EventAggregator;
     errorMessage: string;
@@ -36,7 +37,7 @@ export class CreateAsset {
     ) {
         this.assetService = assetService;
         this.controller = controllerFactory.createForCurrentScope();
-
+        this.countries = [];
         this.createRules = ValidationRules
             .ensure((a: CreateAsset) => a.assetName).required()
             .ensure((a: CreateAsset) => a.eMailAdressOfDepartment).required().email()
@@ -49,6 +50,7 @@ export class CreateAsset {
 
         this.controller.addObject(this, this.createRules);
         this.controller.addRenderer(new BootstrapFormRenderer());
+        this.getCountries();
         this.purchaseDate = new Date();
     }
 
@@ -85,12 +87,27 @@ export class CreateAsset {
                             }
                         }).catch(error => {
                             console.log(error)
-                            this.eventAggregator.publish("ewFlashError", "An error occured.")
+                            this.eventAggregator.publish("ewFlashError", "An error occurred.")
                         });
 
                 } else {
                     this.eventAggregator.publish("ewFlashError", "Asset is not saved.")
                 }
+            });
+    }
+
+    getCountries() {
+        this.assetService.getCountries()
+            .then(result => {
+                debugger;
+                if (result.success)
+                    this.countries = result.data;
+                else
+                    this.eventAggregator.publish("ewFlashError", result.errors.join("\n"));
+            })
+            .catch(error => {
+                console.log(error)
+                this.eventAggregator.publish("ewFlashError", "An error occurred.")
             });
     }
 }

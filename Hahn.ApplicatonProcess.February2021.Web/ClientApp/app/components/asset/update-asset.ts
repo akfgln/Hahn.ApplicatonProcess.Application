@@ -81,11 +81,11 @@ export class UpdateAsset {
                     this.isBroken = result.isBroken;
                 }
                 else {
-                    this.eventAggregator.publish("ewFlashError", "An error occured.")
+                    this.eventAggregator.publish("ewFlashError", "An error occurred.")
                 }
             }).catch(error => {
                 console.log(error)
-                this.eventAggregator.publish("ewFlashError", "An error occured.")
+                this.eventAggregator.publish("ewFlashError", "An error occurred.")
             });
     }
 
@@ -115,7 +115,7 @@ export class UpdateAsset {
                             }
                         }).catch(error => {
                             console.log(error)
-                            this.eventAggregator.publish("ewFlashError", "An error occured.")
+                            this.eventAggregator.publish("ewFlashError", "An error occurred.")
                         });
 
                 } else {
