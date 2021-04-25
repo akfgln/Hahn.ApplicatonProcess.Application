@@ -41,13 +41,27 @@ export class App {
             nav: true,
             title: 'Counter'
         }, {
-            route: 'asset',
-            name: 'asset',
+            route: 'assets',
+            name: 'assets',
             settings: { icon: 'th-list' },
-            moduleId: PLATFORM.moduleName('../asset/asset'),
+            moduleId: PLATFORM.moduleName('../asset/assets'),
             nav: true,
             title: 'Assets'
-        },
+            },
+            {
+                route: 'addasset',
+                name: 'addasset',
+                moduleId: PLATFORM.moduleName('../asset/create-asset'),
+                nav: false,
+                title: 'Add New Asset'
+            },
+            {
+                route: 'assetdetail/:id',
+                name: 'assetdetail',
+                moduleId: PLATFORM.moduleName('../asset/update-asset'),
+                nav: false,
+                title: 'Asset Details'
+            },
         {
             route: "login",
             name: "login",

@@ -2,7 +2,9 @@
     <h1>Assets</h1>
 
     <p if.bind="!assets"><em>Loading...</em></p>
-
+    <a route-href="route: addasset;">
+        Add New Asset
+    </a>
     <table if.bind="assets" class="table">
         <thead>
             <tr>
@@ -13,6 +15,7 @@
                 <th>EMail Adress Of Department</th>
                 <th>Purchase Date</th>
                 <th>Broken</th>
+                <th>Details</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +27,12 @@
                 <td>${ asset.eMailAdressOfDepartment }</td>
                 <td>${ asset.purchaseDate }</td>
                 <td>${ asset.isBroken }</td>
+                <td>
+                    <a route-href="route: assetdetail;
+                                   params.bind: {id:asset.id}">
+                        Get
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>

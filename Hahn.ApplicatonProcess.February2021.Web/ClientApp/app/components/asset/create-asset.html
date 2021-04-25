@@ -1,0 +1,87 @@
+<template>
+    <div slot="form" class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Create Asset</h1>
+                </div>
+                <form class="card-block" submit.trigger="addNew()">
+
+                    <div class="form-group">
+                        <label class="sr-only" for="asset.assetName">Name</label>
+                        <div class="input-group mb-12">
+                            <input type="text"
+                                   class="form-control"
+                                   id="asset.assetName"
+                                   value.bind="asset.assetName" required
+                                   placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="asset.department">Department</label>
+                        <div class="input-group mb-12">
+                            <input type="text"
+                                   class="form-control"
+                                   id="asset.department"
+                                   value.bind="asset.department" required
+                                   placeholder="Department">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="asset.countryOfDepartment">Country Of Department</label>
+                        <div class="input-group mb-12">
+                            <input type="text"
+                                   class="form-control"
+                                   id="asset.countryOfDepartment"
+                                   value.bind="asset.countryOfDepartment" required
+                                   placeholder="Country Of Department">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="asset.eMailAdressOfDepartment">Email</label>
+                        <div class="input-group mb-12">
+                            <input type="text"
+                                   class="form-control"
+                                   id="asset.eMailAdressOfDepartment"
+                                   value.bind="asset.eMailAdressOfDepartment" required
+                                   placeholder="Email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" for="asset.purchaseDate">Purchase Date</label>
+                        <div class="input-group mb-12">
+                            <input type="date"
+                                   class="form-control"
+                                   id="asset.purchaseDate"
+                                   value.bind="asset.purchaseDate" required
+                                   placeholder="Purchase Date">
+                        </div>
+                    </div>
+
+                    <div class="form-check">
+                        <label class="form-check-label" for="asset.isBroken">Broken</label>
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="asset.isBroken"
+                               value.bind="asset.isBroken">
+                    </div>
+
+                    <ul if.bind="controller.errors">
+                        <li repeat.for="error of controller.errors">
+                            ${error.message}
+                        </li>
+                    </ul>
+                    <ul if.bind="server_side_errors">
+                        <li repeat.for="error of server_side_errors">
+                            ${error}
+                        </li>
+                    </ul>
+                    <button type="submit" class="btn btn-success">
+                        Save
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
