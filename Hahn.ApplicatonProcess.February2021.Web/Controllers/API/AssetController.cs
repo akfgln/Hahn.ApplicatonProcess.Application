@@ -6,6 +6,7 @@ using Hahn.ApplicatonProcess.February2021.Domain.Models;
 using Hahn.ApplicatonProcess.February2021.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -84,6 +85,14 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             var response = client.Send(request);
             var responseString =  response.Content.ReadAsStringAsync().Result;
             var model = Newtonsoft.Json.JsonConvert.DeserializeObject<IList<CountryModel>>(responseString);
+
+            return Ok(model);
+        }
+
+        [HttpGet("GetDepartments")]
+        public ActionResult<IList<string>> GetDepartments()
+        {
+           var model = Enum.GetNames(typeof(Data.Departments));
 
             return Ok(model);
         }

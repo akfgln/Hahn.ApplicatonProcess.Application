@@ -26,22 +26,21 @@
                     <div class="form-group">
                         <label for="department">Department</label>
                         <div class="input-group mb-12">
-                            <input type="text"
-                                   class="form-control"
-                                   id="department"
-                                   value.bind="department" required
-                                   placeholder="Department">
+                            <abp-select element.bind="picker"
+                                        selected-value.bind="department"
+                                        collection.bind="departments"
+                                        picker-options.bind="selectOptions"
+                                        object-key="id"></abp-select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="countryOfDepartment">Country Of Department</label>
                         <div class="input-group mb-12">
-                            <select value.bind="countryOfDepartment"  class="form-control">
-                                <option repeat.for="country of countries"
-                                        model.bind="country.name">
-                                    ${country.name}
-                                </option>
-                            </select>
+                            <abp-select element.bind="picker"
+                                        selected-value.bind="countryOfDepartment"
+                                        collection.bind="countries" 
+                                        picker-options.bind="selectOptions"
+                                        object-key="id"></abp-select>
                         </div>
                     </div>
                     <div class="form-group">

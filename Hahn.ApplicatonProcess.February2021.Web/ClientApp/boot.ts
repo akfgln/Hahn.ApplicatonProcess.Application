@@ -7,7 +7,8 @@ declare const IS_DEV_BUILD: boolean; // The value is supplied by Webpack during 
 
 export function configure(aurelia: Aurelia) {
     aurelia.use.standardConfiguration()
-         .plugin(PLATFORM.moduleName('aurelia-validation'));
+        .plugin(PLATFORM.moduleName('aurelia-validation'))
+        .plugin(PLATFORM.moduleName('aurelia-bootstrap-select'));
   
     if (IS_DEV_BUILD) {
         aurelia.use.developmentLogging();

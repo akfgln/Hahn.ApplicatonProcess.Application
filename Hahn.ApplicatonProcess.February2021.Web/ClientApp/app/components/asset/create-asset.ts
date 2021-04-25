@@ -13,8 +13,9 @@ import { AssetService } from '../services/asset-service'
 export class CreateAsset {
     assetService: AssetService;
     controller: ValidationController;
-    countries: any[] | undefined;
+    countries: any[];
     createRules: any;
+    departments: any[];
     eventAggregator: EventAggregator;
     errorMessage: string;
     http: HttpClient;
@@ -28,6 +29,13 @@ export class CreateAsset {
     eMailAdressOfDepartment: string | undefined;
     purchaseDate: Date | undefined;
     isBroken: boolean | undefined;
+
+    selectOptions = {
+        liveSearch: true,
+        showSubtext: true,
+        showTick: true,
+        selectedTextFormat: 'count > 3'
+    };
 
     constructor(
         assetService: AssetService,
@@ -43,6 +51,7 @@ export class CreateAsset {
             .ensure((a: CreateAsset) => a.eMailAdressOfDepartment).required().email()
             .rules;
 
+        this.departments = [];
         this.eventAggregator = eventAggregator;
         this.errorMessage = "";
         this.http = http;
@@ -51,6 +60,7 @@ export class CreateAsset {
         this.controller.addObject(this, this.createRules);
         this.controller.addRenderer(new BootstrapFormRenderer());
         this.getCountries();
+        this.getDepartments();
         this.purchaseDate = new Date();
     }
 
@@ -70,13 +80,13 @@ export class CreateAsset {
                         .then(result => {
                             
                             if (result.success) {
-                                
+
                                 this.eventAggregator.publish("ewFlashSuccess", "Asset is saved.")
                                 this.server_side_errors = [];
 
                                 this.assetName = "";
-                                this.department = "";
-                                this.countryOfDepartment = "";
+                                this.department = this.departments[0].id;
+                                this.countryOfDepartment = this.countries[0].id;
                                 this.eMailAdressOfDepartment = "";
                                 this.purchaseDate = new Date();
                                 this.isBroken = false;
@@ -99,9 +109,33 @@ export class CreateAsset {
     getCountries() {
         this.assetService.getCountries()
             .then(result => {
-                debugger;
-                if (result.success)
-                    this.countries = result.data;
+                if (result.success) {
+                    this.countries = [];
+                    for (var i = 0; i < result.data.length; i++) {
+                        let country = result.data[i];
+                        this.countries.push({ id: country.name, option: country.name});
+                    }
+                }
+                else
+                    this.eventAggregator.publish("ewFlashError", result.errors.join("\n"));
+            })
+            .catch(error => {
+                console.log(error)
+                this.eventAggregator.publish("ewFlashError", "An error occurred.")
+            });
+    }
+
+    getDepartments() {
+        this.assetService.getDepartments()
+            .then(result => {
+                
+                if (result.success) {
+                    this.departments = [];
+                    for (var i = 0; i < result.data.length; i++) {
+                        let department = result.data[i];
+                        this.departments.push({ id: department, option: department });
+                    }
+                }
                 else
                     this.eventAggregator.publish("ewFlashError", result.errors.join("\n"));
             })

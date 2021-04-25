@@ -27,6 +27,7 @@
     "aurelia-api": "^3.2.1",
     "aurelia-binding": "^2.3.0",
     "aurelia-bootstrap": "^0.1.20",
+    "aurelia-bootstrap-select": "^1.4.1",
     "aurelia-bootstrapper": "^2.3.3",
     "aurelia-dialog": "^1.1.0",
     "aurelia-event-aggregator": "^1.0.3",

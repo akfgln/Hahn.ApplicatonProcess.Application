@@ -87,12 +87,12 @@ export class AssetService {
             method: 'delete'
         })
             .then(function (response) {
-                debugger;
+                
                 var result: any = {
                     success: false,
                     errors: []
                 };
-                console.log(response.status);
+                
                 if (!response.ok) {
                     result.errors.push("An error occurred.");
                 } else {
@@ -102,7 +102,7 @@ export class AssetService {
                 return result;
             })
             .catch(error => {
-                debugger;
+                
                 var result: any = {
                     success: false,
                     data: {},
@@ -153,12 +153,12 @@ export class AssetService {
     getCountries() {
         return this.http.fetch('api/Asset/GetCountries')
             .then(function (response) {
-                debugger;
+                
                 var result: any = {
                     success: false,
                     errors: []
                 };
-                console.log(response.status);
+                
                 if (!response.ok) {
                     result.errors.push("An error occurred.");
                 } else {
@@ -176,11 +176,48 @@ export class AssetService {
                 return result;
             })
             .catch(error => {
-                debugger;
+                
                 var result: any = {
                     success: false,
                     data: {},
                     errors: ["An error occurred when receiving the data of the countries."]
+                };
+                console.log(error);
+                return result;
+            });
+    }
+
+    getDepartments() {
+        return this.http.fetch('api/Asset/GetDepartments')
+            .then(function (response) {
+                
+                var result: any = {
+                    success: false,
+                    errors: []
+                };
+                if (!response.ok) {
+                    result.errors.push("An error occurred.");
+                } else {
+                    result.success = true;
+                }
+
+                return response.json();
+            })
+            .then(data => {
+                
+                var result: any = {
+                    success: true,
+                    data: data,
+                    errors: []
+                };
+                return result;
+            })
+            .catch(error => {
+                
+                var result: any = {
+                    success: false,
+                    data: {},
+                    errors: ["An error occurred when receiving the data of the departments."]
                 };
                 console.log(error);
                 return result;

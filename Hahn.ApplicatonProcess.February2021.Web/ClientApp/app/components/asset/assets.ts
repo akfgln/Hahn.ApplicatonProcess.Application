@@ -30,7 +30,7 @@ export class Asset {
         if (confirm('Are you sure that you want to delete this asset?')) {
             this.assetService.deleteAsset(asset.id)
                 .then(data => {
-                    debugger;
+                    
                     if(data.success)
                         this.eventAggregator.publish("ewFlashSuccess", "Asset is deleted.");
                     else
