@@ -66,9 +66,9 @@ export class CreateAsset {
                         isBroken: this.isBroken
                     })
                         .then(result => {
-                            debugger;
+                            
                             if (result.success) {
-                                debugger;
+                                
                                 this.eventAggregator.publish("ewFlashSuccess", "Asset is saved.")
                                 this.server_side_errors = [];
 

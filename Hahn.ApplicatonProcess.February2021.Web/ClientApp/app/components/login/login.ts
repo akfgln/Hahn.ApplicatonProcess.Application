@@ -49,13 +49,13 @@ export class Login {
     logIn() {
         this.controller.validate()
             .then(result => {
-                debugger;
+                
                 if (result.valid) {
                     this.authService.logIn(this.email,
                         this.password)
                         .then(tokenResult => {
                             if (tokenResult.success) {
-                                debugger;
+                                
                                 this.eventAggregator.publish("ewFlashSuccess", "Authentication is completed.")
                                 this.server_side_errors = [];
 

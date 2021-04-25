@@ -16,6 +16,10 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <Compile Remove="wwwroot\dist\**" />
+    <Content Remove="wwwroot\dist\**" />
+    <EmbeddedResource Remove="wwwroot\dist\**" />
+    <None Remove="wwwroot\dist\**" />
     <TypeScriptCompile Remove="node_modules\**" />
   </ItemGroup>
   <ItemGroup>
@@ -56,8 +60,6 @@
     <None Include="ClientApp\boot.ts" />
     <None Include="Views\_ViewImports.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
-    <None Include="wwwroot\dist\89889688147bd7575d6327160d64e760.svg" />
-    <None Include="wwwroot\dist\vendor.js" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

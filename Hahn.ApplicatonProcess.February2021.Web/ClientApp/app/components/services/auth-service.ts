@@ -21,7 +21,7 @@ export class AuthService {
                     token: "",
                     errors: []
                 };
-                debugger;
+                
                 if (typeof tokenResult === 'string' || tokenResult instanceof String)
                     result.errors.push(tokenResult)
                 else {
@@ -42,7 +42,7 @@ export class AuthService {
                 return result;
             })
             .catch(error => {
-                debugger;
+                
                 let tokenResult = {
                     success: false,
                     message: error.message
@@ -92,7 +92,7 @@ export class AuthService {
         let auth = this;
         return {
             request(request: any) {
-                debugger;
+                
                 let token = auth.getToken();
                 if (token) {
                     request.headers

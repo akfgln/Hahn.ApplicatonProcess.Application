@@ -57,7 +57,7 @@ export class UpdateAsset {
     activate(params) {
         this.assetService.getAsset(params.id)
             .then(result => {
-                debugger;
+                
                 if (typeof result === 'string' || result instanceof String)
                 {
                     this.isAssetFound = false;
@@ -72,6 +72,7 @@ export class UpdateAsset {
                 }
 
                 if (result) {
+                    this.id = result.id;
                     this.assetName = result.assetName;
                     this.department = result.department;
                     this.countryOfDepartment = result.countryOfDepartment;
@@ -88,11 +89,11 @@ export class UpdateAsset {
             });
     }
 
-    addNew() {
+    edit() {
         this.controller.validate()
             .then(result => {
                 if (result.valid) {
-                    this.assetService.createAsset({
+                    this.assetService.updateAsset(this.id, {
                         id: 0,
                         assetName: this.assetName,
                         department: this.department,
@@ -102,19 +103,12 @@ export class UpdateAsset {
                         isBroken: this.isBroken
                     })
                         .then(result => {
-                            debugger;
+                            
                             if (result.success) {
-                                debugger;
+                                
                                 this.eventAggregator.publish("ewFlashSuccess", "Asset is saved.")
                                 this.server_side_errors = [];
-
-                                this.assetName = "";
-                                this.department = "";
-                                this.countryOfDepartment = "";
-                                this.eMailAdressOfDepartment = "";
-                                this.purchaseDate = new Date();
-                                this.isBroken = false;
-
+                                this.isAssetFound = true;
                             }
                             else {
                                 this.server_side_errors = result.errors;

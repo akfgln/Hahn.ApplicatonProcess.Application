@@ -18,9 +18,13 @@ export class AssetService {
                 return data;
             })
             .catch(error => {
-                //TODO message
+                var result: any = {
+                    success: false,
+                    data: {},
+                    errors: ["An error occured."]
+                };
                 console.log(error);
-                return;
+                return result;
             });
     }
 
@@ -31,7 +35,7 @@ export class AssetService {
         })
             .then(response => response.json())
             .then(data => {
-                debugger;
+                
                 var result: any = {
                     success: false,
                     data: {},
@@ -51,10 +55,13 @@ export class AssetService {
                 return result;
             })
             .catch(error => {
-
-                //TODO message
+                var result: any = {
+                    success: false,
+                    data: {},
+                    errors: ["An error occured."]
+                };
                 console.log(error);
-                return;
+                return result;
             });
     }
 
@@ -65,9 +72,13 @@ export class AssetService {
                 return data;
             })
             .catch(error => {
-                //TODO message
+                var result: any = {
+                    success: false,
+                    data: {},
+                    errors: ["An error occured."]
+                };
                 console.log(error);
-                return;
+                return result;
             });
     }
 
@@ -92,35 +103,40 @@ export class AssetService {
             });
     }
 
-    updateClient(id, asset) {
+    updateAsset(id, asset) {
         return this.http.fetch('api/Asset/' + id, {
             method: 'put',
             body: json(asset)
         })
             .then(response => response.json())
             .then(data => {
+                
                 var result: any = {
                     success: false,
+                    data: {},
                     errors: []
                 };
-
+                if (typeof data === 'string' || data instanceof String)
+                    result.errors.push(data)
+                else if (!data.id) {
+                    for (var key in data) {
+                        var value = data[key];
+                        result.errors.push(...value);
+                    }
+                } else {
+                    result.data = data;
+                    result.success = true;
+                }
                 return result;
             })
             .catch(error => {
-
-                //TODO message
+                var result: any = {
+                    success: false,
+                    data: {},
+                    errors: ["An error occured."]
+                };
                 console.log(error);
-                return;
+                return result;
             });
     }
-}
-
-interface AssetModel {
-    id: number;
-    assetName: string;
-    department: string;
-    countryOfDepartment: string;
-    eMailAdressOfDepartment: string;
-    purchaseDate: Date;
-    isBroken: boolean;
 }
