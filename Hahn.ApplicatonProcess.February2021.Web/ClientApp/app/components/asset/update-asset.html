@@ -1,4 +1,95 @@
 <template>
-    <h1> Update Asset</h1>
+    <div slot="form" class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Update Asset</h1>
+                </div>
+                <div class="card-body">
+                    <p class="card-text"> Update asset</p>
+                    <a route-href="route: assets;" class="card-link">
+                        Go back to list
+                    </a>
+                </div>
+                <form class="card-block" submit.trigger="addNew()" if.bind="isAssetFound">
+                    <div class="form-group">
+                        <label for="assetName">Name</label>
+                        <div class="input-group mb-12">
+                            <input type="text"
+                                   class="form-control"
+                                   id="assetName"
+                                   value.bind="assetName" required
+                                   placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <div class="input-group mb-12">
+                            <input type="text"
+                                   class="form-control"
+                                   id="department"
+                                   value.bind="department" required
+                                   placeholder="Department">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="countryOfDepartment">Country Of Department</label>
+                        <div class="input-group mb-12">
+                            <input type="text"
+                                   class="form-control"
+                                   id="countryOfDepartment"
+                                   value.bind="countryOfDepartment" required
+                                   placeholder="Country Of Department">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="eMailAdressOfDepartment">Email</label>
+                        <div class="input-group mb-12">
+                            <input type="text"
+                                   class="form-control"
+                                   id="eMailAdressOfDepartment"
+                                   value.bind="eMailAdressOfDepartment" required
+                                   placeholder="Email">
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="purchaseDate">Purchase Date</label>
+                        <div class="input-group mb-12">
+                            <input type="date"
+                                   class="form-control"
+                                   id="purchaseDate"
+                                   value.bind="purchaseDate" required
+                                   placeholder="Purchase Date">
+                        </div>
+                    </div>
+
+                    <div class="form-check">
+                        <label class="form-check-label" for="isBroken">Broken</label>
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="isBroken"
+                               value.bind="isBroken">
+                    </div>
+
+                    <ul if.bind="controller.errors">
+                        <li repeat.for="error of controller.errors">
+                            ${error.message}
+                        </li>
+                    </ul>
+                    <ul if.bind="server_side_errors">
+                        <li repeat.for="error of server_side_errors">
+                            ${error}
+                        </li>
+                    </ul>
+                    <button type="submit" class="btn btn-success">
+                        Save
+                    </button>
+                </form>
+                <div if.bind="!isAssetFound" class="alert alert-danger" role="alert">
+                        Asset is not found!
+                </div>
+            </div>
+        </div>
+    </div>
 </template>

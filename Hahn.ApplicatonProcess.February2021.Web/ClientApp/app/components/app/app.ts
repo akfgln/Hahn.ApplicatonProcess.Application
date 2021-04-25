@@ -1,6 +1,6 @@
 import { Aurelia, PLATFORM } from 'aurelia-framework';
 import { inject } from "aurelia-framework";
-import { Router, RouterConfiguration } from 'aurelia-router';
+import { Router, RouterConfiguration, activationStrategy } from 'aurelia-router';
 import { HttpClient } from "aurelia-fetch-client";
 import { AuthService } from "../services/auth-service";
 import { AuthorizeStep } from "../services/authorization-step";
@@ -32,7 +32,8 @@ export class App {
             settings: { icon: 'home' },
             moduleId: PLATFORM.moduleName('../home/home'),
             nav: true,
-            title: 'Home'
+            title: 'Home',
+            activationStrategy: activationStrategy.invokeLifecycle
         }, {
             route: 'counter',
             name: 'counter',
@@ -46,22 +47,23 @@ export class App {
             settings: { icon: 'th-list' },
             moduleId: PLATFORM.moduleName('../asset/assets'),
             nav: true,
-            title: 'Assets'
-            },
-            {
-                route: 'addasset',
-                name: 'addasset',
-                moduleId: PLATFORM.moduleName('../asset/create-asset'),
-                nav: false,
-                title: 'Add New Asset'
-            },
-            {
-                route: 'assetdetail/:id',
-                name: 'assetdetail',
-                moduleId: PLATFORM.moduleName('../asset/update-asset'),
-                nav: false,
-                title: 'Asset Details'
-            },
+            title: 'Assets',
+            activationStrategy: activationStrategy.invokeLifecycle
+        },
+        {
+            route: 'addasset',
+            name: 'addasset',
+            moduleId: PLATFORM.moduleName('../asset/create-asset'),
+            nav: false,
+            title: 'Add New Asset'
+        },
+        {
+            route: 'assetdetail/:id',
+            name: 'assetdetail',
+            moduleId: PLATFORM.moduleName('../asset/update-asset'),
+            nav: false,
+            title: 'Asset Details'
+        },
         {
             route: "login",
             name: "login",
@@ -69,6 +71,7 @@ export class App {
             moduleId: PLATFORM.moduleName('../login/login'),
             title: "Login",
             nav: true,
+            activationStrategy: activationStrategy.invokeLifecycle
         }]);
 
         this.router = router;

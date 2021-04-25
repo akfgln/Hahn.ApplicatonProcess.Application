@@ -4,7 +4,6 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { ValidationControllerFactory, ValidationRules, ValidationController } from 'aurelia-validation';
 import { BootstrapFormRenderer } from '../services/bootstrap-form-renderer';
 import { AssetService } from '../services/asset-service'
-import { error } from 'jquery';
 
 @inject(AssetService,
     ValidationControllerFactory,

@@ -6,8 +6,8 @@ import { BootstrapFormRenderer } from '../services/bootstrap-form-renderer';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { AuthService } from '../services/auth-service';
 
-@inject(AuthService, HttpClient, ValidationControllerFactory, 
-EventAggregator, Router)
+@inject(AuthService, HttpClient, ValidationControllerFactory,
+    EventAggregator, Router)
 export class Login {
     authService: AuthService;
     controller: ValidationController;
@@ -59,21 +59,17 @@ export class Login {
                                 this.eventAggregator.publish("ewFlashSuccess", "Authentication is completed.")
                                 this.server_side_errors = [];
 
-                                this.http.configure(config => {
-                                    config
-                                        .withBaseUrl('/')
-                                        .withInterceptor(this.authService.tokenInterceptor);
-                                });
-
-                                this.router.navigateToRoute('home');
+                                this.router.navigateToRoute('home',
+                                    this.router.currentInstruction.params,
+                                    { replace: true });
                             }
                             else {
                                 this.server_side_errors = tokenResult.errors;
                             }
                         });
                 } else {
-                    this.eventAggregator.publish("ewFlashError","Authentication is failed.")
-                }      
+                    this.eventAggregator.publish("ewFlashError", "Authentication is failed.")
+                }
             });
     }
 }
