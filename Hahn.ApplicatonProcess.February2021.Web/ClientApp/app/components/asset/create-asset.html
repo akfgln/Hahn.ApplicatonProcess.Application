@@ -8,63 +8,63 @@
                 <form class="card-block" submit.trigger="addNew()">
 
                     <div class="form-group">
-                        <label class="sr-only" for="asset.assetName">Name</label>
+                        <label for="assetName">Name</label>
                         <div class="input-group mb-12">
                             <input type="text"
                                    class="form-control"
-                                   id="asset.assetName"
-                                   value.bind="asset.assetName" required
+                                   id="assetName"
+                                   value.bind="assetName" required
                                    placeholder="Name">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="sr-only" for="asset.department">Department</label>
+                        <label for="department">Department</label>
                         <div class="input-group mb-12">
                             <input type="text"
                                    class="form-control"
-                                   id="asset.department"
-                                   value.bind="asset.department" required
+                                   id="department"
+                                   value.bind="department" required
                                    placeholder="Department">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="sr-only" for="asset.countryOfDepartment">Country Of Department</label>
+                        <label for="countryOfDepartment">Country Of Department</label>
                         <div class="input-group mb-12">
                             <input type="text"
                                    class="form-control"
-                                   id="asset.countryOfDepartment"
-                                   value.bind="asset.countryOfDepartment" required
+                                   id="countryOfDepartment"
+                                   value.bind="countryOfDepartment" required
                                    placeholder="Country Of Department">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="sr-only" for="asset.eMailAdressOfDepartment">Email</label>
+                        <label for="eMailAdressOfDepartment">Email</label>
                         <div class="input-group mb-12">
                             <input type="text"
                                    class="form-control"
-                                   id="asset.eMailAdressOfDepartment"
-                                   value.bind="asset.eMailAdressOfDepartment" required
+                                   id="eMailAdressOfDepartment"
+                                   value.bind="eMailAdressOfDepartment" required
                                    placeholder="Email">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="sr-only" for="asset.purchaseDate">Purchase Date</label>
+                        <label for="purchaseDate">Purchase Date</label>
                         <div class="input-group mb-12">
                             <input type="date"
                                    class="form-control"
-                                   id="asset.purchaseDate"
-                                   value.bind="asset.purchaseDate" required
+                                   id="purchaseDate"
+                                   value.bind="purchaseDate" required
                                    placeholder="Purchase Date">
                         </div>
                     </div>
 
                     <div class="form-check">
-                        <label class="form-check-label" for="asset.isBroken">Broken</label>
+                        <label class="form-check-label" for="isBroken">Broken</label>
                         <input type="checkbox"
                                class="form-check-input"
-                               id="asset.isBroken"
-                               value.bind="asset.isBroken">
+                               id="isBroken"
+                               value.bind="isBroken">
                     </div>
 
                     <ul if.bind="controller.errors">

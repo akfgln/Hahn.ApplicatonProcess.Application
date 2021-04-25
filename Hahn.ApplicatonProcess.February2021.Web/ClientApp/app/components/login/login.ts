@@ -2,9 +2,9 @@ import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { HttpClient } from "aurelia-fetch-client";
 import { ValidationControllerFactory, ValidationRules, ValidationController } from 'aurelia-validation';
+import { BootstrapFormRenderer } from '../services/bootstrap-form-renderer';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { AuthService } from '../services/auth-service';
-import {BootstrapFormRenderer} from '../services/bootstrap-form-renderer';
 
 @inject(AuthService, HttpClient, ValidationControllerFactory, 
 EventAggregator, Router)
