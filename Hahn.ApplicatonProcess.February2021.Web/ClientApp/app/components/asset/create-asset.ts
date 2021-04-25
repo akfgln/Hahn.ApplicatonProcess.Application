@@ -78,7 +78,7 @@ export class CreateAsset {
                         isBroken: this.isBroken
                     })
                         .then(result => {
-                            
+                            debugger;
                             if (result.success) {
 
                                 this.eventAggregator.publish("ewFlashSuccess", "Asset is saved.")
@@ -88,7 +88,7 @@ export class CreateAsset {
                                 this.department = this.departments[0].id;
                                 this.countryOfDepartment = this.countries[0].id;
                                 this.eMailAdressOfDepartment = "";
-                                this.purchaseDate = new Date();
+                                //this.purchaseDate = new Date();
                                 this.isBroken = false;
 
                             }

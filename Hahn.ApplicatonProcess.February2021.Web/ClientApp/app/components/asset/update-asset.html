@@ -56,11 +56,9 @@
                     <div class="form-group">
                         <label for="purchaseDate">Purchase Date</label>
                         <div class="input-group mb-12">
-                            <input type="date"
-                                   class="form-control"
-                                   id="purchaseDate"
-                                   value.bind="purchaseDate" required
-                                   placeholder="Purchase Date">
+                            <abp-datetime-picker value.bind="purchaseDate"
+                                                 options.bind="{ format: 'YYYY-MM-DD' }">
+                            </abp-datetime-picker>
                         </div>
                     </div>
 

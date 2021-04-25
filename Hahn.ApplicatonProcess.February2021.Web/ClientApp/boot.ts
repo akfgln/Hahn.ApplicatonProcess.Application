@@ -8,7 +8,16 @@ declare const IS_DEV_BUILD: boolean; // The value is supplied by Webpack during 
 export function configure(aurelia: Aurelia) {
     aurelia.use.standardConfiguration()
         .plugin(PLATFORM.moduleName('aurelia-validation'))
-        .plugin(PLATFORM.moduleName('aurelia-bootstrap-select'));
+        .plugin(PLATFORM.moduleName('aurelia-bootstrap-select'))
+        .plugin(PLATFORM.moduleName('aurelia-bootstrap-datetimepicker'), config => {
+            // extra attributes, with config.extra
+            config.extra.iconBase = 'font-awesome';
+            config.extra.withDateIcon = true;
+
+            // or even any picker options, with config.options
+            config.options.format = 'YYYY-MM-DD';
+            config.options.showTodayButton = true;
+        });
   
     if (IS_DEV_BUILD) {
         aurelia.use.developmentLogging();

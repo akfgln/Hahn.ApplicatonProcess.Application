@@ -72,6 +72,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
             asset.Department = model.Department.ToString();
             asset.EMailAdressOfDepartment = model.EMailAdressOfDepartment;
             asset.IsBroken = model.IsBroken;
+            asset.PurchaseDate = model.PurchaseDate;
 
             await _uow.CommitAsync();
             return asset;

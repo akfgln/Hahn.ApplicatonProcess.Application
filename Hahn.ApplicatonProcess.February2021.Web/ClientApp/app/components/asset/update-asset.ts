@@ -161,7 +161,6 @@ export class UpdateAsset {
                         let department = result.data[i];
                         this.departments.push({ id: department, option: department });
                     }
-
                     this.department = department;
                 }
                 else

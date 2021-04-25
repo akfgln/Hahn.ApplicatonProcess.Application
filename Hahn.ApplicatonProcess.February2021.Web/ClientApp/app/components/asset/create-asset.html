@@ -37,6 +37,7 @@
                         <label for="countryOfDepartment">Country Of Department</label>
                         <div class="input-group mb-12">
                             <abp-select element.bind="picker"
+                                        autocomplete="off"
                                         selected-value.bind="countryOfDepartment"
                                         collection.bind="countries" 
                                         picker-options.bind="selectOptions"
@@ -57,11 +58,18 @@
                     <div class="form-group">
                         <label for="purchaseDate">Purchase Date</label>
                         <div class="input-group mb-12">
-                            <input type="date"
+                            <!--<input type="date"
                                    class="form-control"
                                    id="purchaseDate"
                                    value.bind="purchaseDate" required
-                                   placeholder="Purchase Date">
+                                   placeholder="Purchase Date">-->
+
+                            <abp-datetime-picker 
+                                                 value.bind="purchaseDate" 
+                                                 options.bind="{ format: 'YYYY-MM-DD' }">
+                            </abp-datetime-picker>
+
+
                         </div>
                     </div>
 
