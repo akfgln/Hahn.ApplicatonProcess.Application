@@ -2,7 +2,8 @@
     <h1>Assets</h1>
 
     <p if.bind="!assets"><em>Loading...</em></p>
-    <a route-href="route: addasset;">
+    <a route-href="route: addEditAsset;
+                   params.bind: {id:0}">
         Add New Asset
     </a>
     <table if.bind="assets" class="table">
@@ -28,7 +29,7 @@
                 <td>${ asset.purchaseDate }</td>
                 <td>${ asset.isBroken }</td>
                 <td>
-                    <a route-href="route: assetdetail;
+                    <a route-href="route: addEditAsset;
                                    params.bind: {id:asset.id}" class="btn btn-info">
                         Get
                     </a>

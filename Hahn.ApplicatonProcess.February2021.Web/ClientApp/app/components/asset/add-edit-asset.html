@@ -3,15 +3,18 @@
         <div class="row justify-content-center align-items-center">
             <div class="card">
                 <div class="card-header">
-                    <h1>Update Asset</h1>
+                    <h1 if.bind="ifNewAsset">Create Asset</h1>
+                    <h1 if.bind="!ifNewAsset">Update Asset</h1>
                 </div>
                 <div class="card-body">
-                    <p class="card-text"> Update asset</p>
+                    <p class="card-text" if.bind="ifNewAsset">Add new asset</p>
+                    <p class="card-text" if.bind="!ifNewAsset">Update asset</p>
                     <a route-href="route: assets;" class="card-link">
                         Go back to list
                     </a>
                 </div>
-                <form class="card-block" submit.trigger="edit()" if.bind="isAssetFound">
+                <form class="card-block" submit.trigger="save()" if.bind="isAssetFound">
+
                     <div class="form-group">
                         <label for="assetName">Name</label>
                         <div class="input-group mb-12">
@@ -19,13 +22,15 @@
                                    class="form-control"
                                    id="assetName"
                                    value.bind="assetName" required
-                                   placeholder="Name">
+                                   placeholder="Name"
+                                   change.delegate="checkFormValid()" keyup.delegate="checkFormValid()">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="department">Department</label>
                         <div class="input-group mb-12">
-                            <abp-select element.bind="departments_picker"
+                            <abp-select autocomplete="off"
+                                        element.bind="picker"
                                         selected-value.bind="department"
                                         collection.bind="departments"
                                         picker-options.bind="selectOptions"
@@ -35,7 +40,8 @@
                     <div class="form-group">
                         <label for="countryOfDepartment">Country Of Department</label>
                         <div class="input-group mb-12">
-                            <abp-select element.bind="countries_picker"
+                            <abp-select autocomplete="off"
+                                        element.bind="picker"
                                         selected-value.bind="countryOfDepartment"
                                         collection.bind="countries"
                                         picker-options.bind="selectOptions"
@@ -49,7 +55,8 @@
                                    class="form-control"
                                    id="eMailAdressOfDepartment"
                                    value.bind="eMailAdressOfDepartment" required
-                                   placeholder="Email">
+                                   placeholder="Email"
+                                   change.delegate="checkFormValid()" keyup.delegate="checkFormValid()">
                         </div>
                     </div>
 
@@ -69,23 +76,27 @@
                                id="isBroken"
                                value.bind="isBroken">
                     </div>
-
-                    <ul if.bind="controller.errors">
-                        <li repeat.for="error of controller.errors">
-                            ${error.message}
-                        </li>
-                    </ul>
-                    <ul if.bind="server_side_errors">
-                        <li repeat.for="error of server_side_errors">
-                            ${error}
-                        </li>
-                    </ul>
+                    <div if.bind="isShowError">
+                        <ul if.bind="controller.errors">
+                            <li repeat.for="error of controller.errors" class="alert alert-danger">
+                                ${error.message}
+                            </li>
+                        </ul>
+                        <ul if.bind="server_side_errors">
+                            <li repeat.for="error of server_side_errors" class="alert alert-danger">
+                                ${error}
+                            </li>
+                        </ul>
+                    </div>
                     <button type="submit" class="btn btn-success">
                         Save
                     </button>
+                    <button type="button" class="btn btn-warning" click.trigger="resetForm()" disabled.bind="isFormValid">
+                        Reset
+                    </button>
                 </form>
                 <div if.bind="!isAssetFound" class="alert alert-danger" role="alert">
-                        Asset is not found!
+                    Asset is not found!
                 </div>
             </div>
         </div>

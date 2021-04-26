@@ -25,8 +25,6 @@
   <ItemGroup>
     <None Remove="ClientApp\app\components\app\app.js" />
     <None Remove="ClientApp\app\components\app\app.js.map" />
-    <None Remove="ClientApp\app\components\counter\counter.js" />
-    <None Remove="ClientApp\app\components\counter\counter.js.map" />
     <None Remove="ClientApp\app\components\home\home.js" />
     <None Remove="ClientApp\app\components\home\home.js.map" />
     <None Remove="ClientApp\app\components\login\login.js" />
@@ -55,7 +53,6 @@
 
   <ItemGroup>
     <None Include="ClientApp\app\components\app\app.ts" />
-    <None Include="ClientApp\app\components\counter\counter.ts" />
     <None Include="ClientApp\app\components\home\home.ts" />
     <None Include="ClientApp\boot.ts" />
     <None Include="Views\_ViewImports.cshtml" />

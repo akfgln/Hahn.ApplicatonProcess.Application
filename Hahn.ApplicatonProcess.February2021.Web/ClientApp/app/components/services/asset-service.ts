@@ -128,7 +128,7 @@ export class AssetService {
                 };
                 if (typeof data === 'string' || data instanceof String)
                     result.errors.push(data)
-                else if (!data.id) {
+                else if (!data.id || typeof data.id !== 'number') {
                     for (var key in data) {
                         var value = data[key];
                         result.errors.push(...value);

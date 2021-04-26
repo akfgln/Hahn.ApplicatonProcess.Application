@@ -59,7 +59,7 @@ export class Login {
                                 this.eventAggregator.publish("ewFlashSuccess", "Authentication is completed.")
                                 this.server_side_errors = [];
 
-                                this.router.navigateToRoute('home',
+                                this.router.navigateToRoute('assets',
                                     this.router.currentInstruction.params,
                                     { replace: true });
                             }
