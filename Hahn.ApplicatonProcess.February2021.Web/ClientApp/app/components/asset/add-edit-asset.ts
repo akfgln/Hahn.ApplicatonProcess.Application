@@ -31,7 +31,7 @@ export class CreateAsset {
     department: string | undefined;
     countryOfDepartment: string | undefined;
     eMailAdressOfDepartment: string | undefined;
-    purchaseDate: Date | undefined;
+    purchaseDate: Date;
     isBroken: boolean | undefined;
 
     selectOptions = {
@@ -50,9 +50,26 @@ export class CreateAsset {
         this.assetService = assetService;
         this.controller = controllerFactory.createForCurrentScope();
         this.countries = [];
+        ValidationRules.customRule(
+            'purchaseDate',
+            (value, obj, max) => {
+                
+                var d = new Date(value);
+                return value === null
+                    || value === undefined
+                    || value.trim() === ''
+                    || d <= max
+            },
+            `\${$displayName} must be a Date and must not be older then one year.`,
+            (max) => ({ max })
+        );
+
+        var nextYear = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+        nextYear.setHours(0, 0, 0, 0);
         this.createRules = ValidationRules
-            .ensure((a: CreateAsset) => a.assetName).required()
+            .ensure((a: CreateAsset) => a.assetName).required().minLength(5)
             .ensure((a: CreateAsset) => a.eMailAdressOfDepartment).required().email()
+            .ensure((a: CreateAsset) => a.purchaseDate).required().satisfiesRule("purchaseDate", nextYear)
             .rules;
 
         this.departments = [];
@@ -72,7 +89,7 @@ export class CreateAsset {
 
 
     activate(params) {
-        
+
         this.ifNewAsset = params.id == 0;
         if (!this.ifNewAsset)
             this.assetService.getAsset(params.id)
@@ -120,7 +137,7 @@ export class CreateAsset {
         }
     }
 
-    addNew() {        
+    addNew() {
         this.controller.validate()
             .then(result => {
                 if (result.valid) {
@@ -134,7 +151,7 @@ export class CreateAsset {
                         isBroken: this.isBroken
                     })
                         .then(result => {
-                            
+
                             if (result.success) {
 
                                 this.eventAggregator.publish("ewFlashSuccess", "Asset is saved.")
@@ -156,7 +173,7 @@ export class CreateAsset {
             });
     }
 
-    edit() {        
+    edit() {
         this.controller.validate()
             .then(result => {
                 if (result.valid) {
@@ -170,7 +187,7 @@ export class CreateAsset {
                         isBroken: this.isBroken
                     })
                         .then(result => {
-                            
+
                             if (result.success) {
                                 this.eventAggregator.publish("ewFlashSuccess", "Asset is saved.")
                                 this.server_side_errors = [];
@@ -236,7 +253,7 @@ export class CreateAsset {
         this.isShowError = false;
         this.controller.validate()
             .then(result => {
-                
+
                 if (result.valid) {
                     this.isFormValid = false;
                 } else {
@@ -257,7 +274,7 @@ export class CreateAsset {
         this.department = this.departments[0].id;
         this.countryOfDepartment = this.countries[0].id;
         this.eMailAdressOfDepartment = "";
-        //this.purchaseDate = new Date();
+        this.purchaseDate = new Date();
         this.isBroken = false;
     }
 

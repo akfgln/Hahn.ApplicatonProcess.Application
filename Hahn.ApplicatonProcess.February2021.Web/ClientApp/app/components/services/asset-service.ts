@@ -1,6 +1,5 @@
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { inject } from 'aurelia-framework';
-import { isArray } from 'jquery';
 
 @inject(HttpClient)
 export class AssetService {

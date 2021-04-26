@@ -11,13 +11,14 @@ export class AuthFilterValueConverter {
     }
 
     toView(routes: any) {
-
+        debugger;
         let isAuthenticated = this.authService.isLoggedIn();
-        let isAdmin = isAuthenticated && this.authService.getUser() != null && this.authService.getUser().admin;
+        //let isAdmin = isAuthenticated && this.authService.getUser() != null && this.authService.getUser().admin;
 
         return routes.filter((r: NavigationInstruction) => r.config.settings.auth === undefined
             || (r.config.settings.auth === isAuthenticated
-            && (!r.config.settings.admin || isAdmin)));
+                //&& (!r.config.settings.admin || isAdmin)
+            ));
     }
 }
 
