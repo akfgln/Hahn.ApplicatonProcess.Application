@@ -214,7 +214,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                         context.SaveChanges();
                         testAdmin = context.Users.FirstOrDefaultAsync(x => x.EMail == "admin@hahn.com");
                         var roles = context.Roles.ToListAsync();
-                        if (testAdmin != null && testAdmin.Result != null && testRoles.Result != null && testRoles.Result != null)
+                        if (testAdmin != null && testAdmin.Result != null && roles != null)
                         {
                             foreach (var item in roles.Result)
                             {

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Hahn.ApplicatonProcess.February2021.Web
 {
@@ -12,6 +13,12 @@ namespace Hahn.ApplicatonProcess.February2021.Web
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                 .ConfigureLogging(logging =>
+               logging.AddFilter("System", LogLevel.Error)
+                  .AddFilter("Microsoft", LogLevel.Information)
+                  .AddFilter("Microsoft", LogLevel.Trace)
+                  .AddFilter("LoggingConsoleApp.Program", LogLevel.Debug)
+                  .AddConsole())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
