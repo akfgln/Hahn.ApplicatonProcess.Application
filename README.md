@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="./Hahn.ApplicatonProcess.February2021.Web/wwwroot/apple-touch-icon.png" alt="ASP.NET Core & Aurelia 5" title="ASP.NET Core & Aurelia 5">
-  <h1 align="center">ASP.NET Core & Aurelia 5 for Hahn<h1>
+  <h1 align="center">ASP.NET Core 5 & Aurelia for Hahn<h1>
 </p>
 
 # Features:
