@@ -23,6 +23,8 @@
 Make sure you have .NET Core 5.0 installed and/or VS2019.
 VS2019 will automatically install all the neccessary npm & .NET dependencies when you open the project.
 If will not install try "npm install" and push F5 to start debugging!
+SwaggerUI Address : http://localhost/swagger/index.html
+AureliaUI Address : http://localhost
 
 **Docker Build**
 For docker usage in solution folder run "**docker build -t hahnproject:1.0 .**"
