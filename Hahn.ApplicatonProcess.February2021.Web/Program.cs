@@ -15,10 +15,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             Host.CreateDefaultBuilder(args)
                  .ConfigureLogging(logging =>
                logging.AddFilter("System", LogLevel.Error)
-                  .AddFilter("Microsoft", LogLevel.Information)
-                  .AddFilter("Microsoft", LogLevel.Trace)
-                  .AddFilter("LoggingConsoleApp.Program", LogLevel.Debug)
-                  .AddConsole())
+                  .AddFilter("Microsoft", LogLevel.Information))
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
