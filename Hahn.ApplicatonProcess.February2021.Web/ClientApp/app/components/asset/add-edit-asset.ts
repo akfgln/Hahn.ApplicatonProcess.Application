@@ -21,7 +21,8 @@ export class CreateAsset {
     http: HttpClient;
     ifNewAsset: boolean;
     isAssetFound: boolean;
-    isFormValid: boolean;
+    isFormNotValid: boolean;
+    isFormSending: boolean;
     isShowError: boolean;
     server_side_errors: string[];
 
@@ -32,7 +33,7 @@ export class CreateAsset {
     countryOfDepartment: string | undefined;
     eMailAdressOfDepartment: string | undefined;
     purchaseDate: Date;
-    isBroken: boolean | undefined;
+    isBroken: boolean;
 
     selectOptions = {
         liveSearch: true,
@@ -78,13 +79,16 @@ export class CreateAsset {
         this.http = http;
         this.isAssetFound = true;
         this.ifNewAsset = true;
-        this.isFormValid = false;
+        this.isFormNotValid = false;
+        this.isFormSending = false;
         this.isShowError = false;
+        this.isBroken = false;
         this.server_side_errors = [];
 
         this.controller.addObject(this, this.createRules);
         this.controller.addRenderer(new BootstrapFormRenderer());
         this.purchaseDate = new Date();
+        this.checkFormValid();
     }
 
 
@@ -130,6 +134,7 @@ export class CreateAsset {
 
     save() {
         this.isShowError = true;
+        this.isFormSending = true;
         if (this.ifNewAsset) {
             this.addNew();
         } else {
@@ -151,23 +156,23 @@ export class CreateAsset {
                         isBroken: this.isBroken
                     })
                         .then(result => {
-
+                            this.isFormSending = false;
                             if (result.success) {
-
-                                this.eventAggregator.publish("ewFlashSuccess", "Asset is saved.")
                                 this.server_side_errors = [];
-                                this.resetObject();
-
+                                //this.resetObject();
+                                this.eventAggregator.publish("ewFlashSuccess", "Asset is saved.")
                             }
                             else {
                                 this.server_side_errors = result.errors;
                             }
                         }).catch(error => {
+                            this.isFormSending = false;
                             console.log(error)
                             this.eventAggregator.publish("ewFlashError", "An error occurred.")
                         });
 
                 } else {
+                    this.isFormSending = false;
                     this.eventAggregator.publish("ewFlashError", "Asset is not saved.")
                 }
             });
@@ -187,7 +192,7 @@ export class CreateAsset {
                         isBroken: this.isBroken
                     })
                         .then(result => {
-
+                            this.isFormSending = false;
                             if (result.success) {
                                 this.eventAggregator.publish("ewFlashSuccess", "Asset is saved.")
                                 this.server_side_errors = [];
@@ -197,11 +202,13 @@ export class CreateAsset {
                                 this.server_side_errors = result.errors;
                             }
                         }).catch(error => {
+                            this.isFormSending = false;
                             console.log(error)
                             this.eventAggregator.publish("ewFlashError", "An error occurred.")
                         });
 
                 } else {
+                    this.isFormSending = false;
                     this.eventAggregator.publish("ewFlashError", "Asset is not saved.")
                 }
             });
@@ -253,11 +260,10 @@ export class CreateAsset {
         this.isShowError = false;
         this.controller.validate()
             .then(result => {
-
                 if (result.valid) {
-                    this.isFormValid = false;
+                    this.isFormNotValid = false;
                 } else {
-                    this.isFormValid = true;
+                    this.isFormNotValid = true;
                 }
             });
     }
@@ -271,8 +277,8 @@ export class CreateAsset {
 
     private resetObject() {
         this.assetName = "";
-        this.department = this.departments[0].id;
-        this.countryOfDepartment = this.countries[0].id;
+        this.department = "";
+        this.countryOfDepartment = "";
         this.eMailAdressOfDepartment = "";
         this.purchaseDate = new Date();
         this.isBroken = false;

@@ -6,30 +6,27 @@
                 <div class="card-header">
                     <h1>Login</h1>
                 </div>
-                <form class="card-block
-                      form-inline" submit.trigger="logIn()">
-                    <label class="sr-only" for="email">email</label>
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <input type="text"
-                               class="form-control"
-                               id="email"
-                               value.bind="email " required
-                               placeholder="email">
+                <form class="card-block" submit.trigger="logIn()">
+                    <div class="form-group">
+                        <label for="email">email</label>
+                        <div class="input-group mb-12">
+                            <input type="text"
+                                   class="form-control"
+                                   id="email"
+                                   value.bind="email & validate" required
+                                   placeholder="email">
+                        </div>
                     </div>
-
-                    <label class="sr-only" for="password">password</label>
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <input type="password"
-                               class="form-control"
-                               id="password"
-                               value.bind="password" required
-                               placeholder="password">
+                    <div class="form-group">
+                        <label for="email">password</label>
+                        <div class="input-group mb-12">
+                            <input type="password"
+                                   class="form-control"
+                                   id="password"
+                                   value.bind="password & validate" required
+                                   placeholder="password">
+                        </div>
                     </div>
-                    <ul if.bind="controller.errors">
-                        <li repeat.for="error of controller.errors">
-                            ${error.message}
-                        </li>
-                    </ul>
                     <ul if.bind="server_side_errors">
                         <li repeat.for="error of server_side_errors">
                             ${error}

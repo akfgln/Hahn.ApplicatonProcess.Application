@@ -34,6 +34,7 @@ export class AssetService {
         })
             .then(response => response.json())
             .then(data => {
+
                 
                 var result: any = {
                     success: false,

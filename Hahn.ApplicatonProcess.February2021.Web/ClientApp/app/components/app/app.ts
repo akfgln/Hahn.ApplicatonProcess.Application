@@ -1,6 +1,6 @@
 import { PLATFORM } from 'aurelia-framework';
 import { inject } from "aurelia-framework";
-import { Router, RouterConfiguration, activationStrategy } from 'aurelia-router';
+import { Router, RouterConfiguration } from 'aurelia-router';
 import { HttpClient } from "aurelia-fetch-client";
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { AuthService } from "../services/auth-service";

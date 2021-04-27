@@ -6,8 +6,11 @@ import { BootstrapFormRenderer } from '../services/bootstrap-form-renderer';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { AuthService } from '../services/auth-service';
 
-@inject(AuthService, HttpClient, ValidationControllerFactory,
-    EventAggregator, Router)
+@inject(AuthService,
+    HttpClient,
+    ValidationControllerFactory,
+    EventAggregator,
+    Router)
 export class Login {
     authService: AuthService;
     controller: ValidationController;
@@ -41,15 +44,13 @@ export class Login {
             .ensure((a: Login) => a.password).required()
             .ensure((a: Login) => a.email).required().email()
             .rules;
-        this.controller.addObject(this, this.loginRules);
-
         this.controller.addRenderer(new BootstrapFormRenderer());
+        this.controller.addObject(this, this.loginRules);
     }
 
     logIn() {
         this.controller.validate()
             .then(result => {
-                
                 if (result.valid) {
                     this.authService.logIn(this.email,
                         this.password)
@@ -68,7 +69,7 @@ export class Login {
                             }
                         });
                 } else {
-                    this.eventAggregator.publish("ewFlashError", "Authentication is failed.")
+                    this.eventAggregator.publish("ewFlashError", "From is not valid.")
                 }
             });
     }

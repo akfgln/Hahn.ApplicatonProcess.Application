@@ -11,7 +11,7 @@ export class AuthFilterValueConverter {
     }
 
     toView(routes: any) {
-        debugger;
+        
         let isAuthenticated = this.authService.isLoggedIn();
         //let isAdmin = isAuthenticated && this.authService.getUser() != null && this.authService.getUser().admin;
 

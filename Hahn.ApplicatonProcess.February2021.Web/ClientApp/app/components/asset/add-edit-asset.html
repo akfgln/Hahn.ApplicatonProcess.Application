@@ -18,10 +18,11 @@
                     <div class="form-group">
                         <label for="assetName">Name</label>
                         <div class="input-group mb-12">
-                            <input type="text"
+                            <input autocomplete="off"
+                                   type="text"
                                    class="form-control"
                                    id="assetName"
-                                   value.bind="assetName" required
+                                   value.bind="assetName & validate" required
                                    placeholder="Name"
                                    change.delegate="checkFormValid()" keyup.delegate="checkFormValid()">
                         </div>
@@ -51,10 +52,11 @@
                     <div class="form-group">
                         <label for="eMailAdressOfDepartment">Email</label>
                         <div class="input-group mb-12">
-                            <input type="text"
+                            <input autocomplete="off"
+                                   type="text"
                                    class="form-control"
                                    id="eMailAdressOfDepartment"
-                                   value.bind="eMailAdressOfDepartment" required
+                                   value.bind="eMailAdressOfDepartment & validate" required
                                    placeholder="Email"
                                    change.delegate="checkFormValid()" keyup.delegate="checkFormValid()">
                         </div>
@@ -63,7 +65,7 @@
                     <div class="form-group">
                         <label for="purchaseDate">Purchase Date</label>
                         <div class="input-group mb-12">
-                            <abp-datetime-picker value.bind="purchaseDate"
+                            <abp-datetime-picker value.bind="purchaseDate & validate"
                                                  options.bind="{ format: 'YYYY-MM-DD' }">
                             </abp-datetime-picker>
                         </div>
@@ -74,7 +76,7 @@
                         <input type="checkbox"
                                class="form-check-input"
                                id="isBroken"
-                               value.bind="isBroken">
+                               checked.bind="isBroken">
                     </div>
                     <div if.bind="isShowError">
                         <ul if.bind="controller.errors">
@@ -88,10 +90,10 @@
                             </li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-success" disabled.bind="isFormSending">
                         Save
                     </button>
-                    <button type="button" class="btn btn-warning" click.trigger="resetForm()" disabled.bind="isFormValid">
+                    <button type="button" class="btn btn-warning" click.trigger="resetForm()" disabled.bind="isFormNotValid">
                         Reset
                     </button>
                 </form>
