@@ -18,7 +18,10 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                   .AddFilter("Microsoft", LogLevel.Information))
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .UseKestrel()
+                        .UseUrls("http://*:80")
+                        .UseStartup<Startup>();
                 });
     }
 }

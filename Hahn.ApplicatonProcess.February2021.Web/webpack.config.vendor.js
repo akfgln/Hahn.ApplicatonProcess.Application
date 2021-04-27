@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var extractCSS = new ExtractTextPlugin('vendor.css');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = ({ prod } = {}) => {
     const isDevBuild = !prod;
@@ -50,7 +51,9 @@ module.exports = ({ prod } = {}) => {
                 name: '[name]_[hash]'
             })
         ].concat(isDevBuild ? [] : [
-            new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
+            new UglifyJsPlugin({
+                cache: true,
+            })
         ])
     }]
 };

@@ -55,8 +55,6 @@ export class AuthService {
         window.localStorage.removeItem("token");
     }
 
-
-
     isLoggedIn() {
         let token = this.getToken();
 

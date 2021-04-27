@@ -45,7 +45,11 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             services.AddControllers()
             .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new StringEnumConverter()));
 
-            services.AddMvc(options => { options.Filters.Add(new ApiExceptionFilter()); })
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new ApiExceptionFilter());
+                options.EnableEndpointRouting = false;
+            })
                     .AddFluentValidation(conf => conf.RegisterValidatorsFromAssemblyContaining<Startup>())
                        .AddJsonOptions(o =>
                        {
@@ -90,10 +94,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                //{
-                //    HotModuleReplacement = true
-                //});
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hahn.ApplicatonProcess.February2021.Web v1"));
@@ -101,6 +101,16 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true
+                });
+
+                app.MapWhen(x => !x.Request.Path.Value.StartsWith("/swagger"), builder =>
+                {
+                    builder.UseMvc(routes =>
+                    {
+                        routes.MapSpaFallbackRoute(
+                            "spa-fallback",
+                            new { controller = "Home", action = "Index" });
+                    });
                 });
             }
             else

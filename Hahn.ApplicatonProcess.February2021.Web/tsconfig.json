@@ -1,14 +1,12 @@
 {
   "compilerOptions": {
-    "module": "es2015",
     "moduleResolution": "node",
     "target": "es5",
     "sourceMap": true,
+    "module": "es2015",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipDefaultLibCheck": true,
-    "strict": true,
-    "noImplicitAny": false,
     "lib": [ "es2015", "dom" ],
     "types": [ "webpack-env" ]
   },

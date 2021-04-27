@@ -16,7 +16,7 @@
 - **Testing**
   - Unit testing 
 
-# Getting Started?
+# Using
 
 **Make sure you have at least Node 6.x or higher (w/ npm 3+) installed!**
 
@@ -24,3 +24,6 @@ Make sure you have .NET Core 5.0 installed and/or VS2019.
 VS2019 will automatically install all the neccessary npm & .NET dependencies when you open the project.
 If will not install try "npm install" and push F5 to start debugging!
 
+**Docker Build**
+For docker usage in solution folder run "**docker build -t hahnproject:1.0 .**"
+and run "**docker run -d -p 80:80 --name hahn hahnproject:1.0**"

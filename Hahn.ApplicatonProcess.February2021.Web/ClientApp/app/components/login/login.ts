@@ -55,11 +55,9 @@ export class Login {
                     this.authService.logIn(this.email,
                         this.password)
                         .then(tokenResult => {
-                            if (tokenResult.success) {
-                                
+                            if (tokenResult.success) {                                
                                 this.eventAggregator.publish("ewFlashSuccess", "Authentication is completed.")
                                 this.server_side_errors = [];
-
                                 this.router.navigateToRoute('assets',
                                     this.router.currentInstruction.params,
                                     { replace: true });
