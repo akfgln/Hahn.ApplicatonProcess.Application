@@ -21,7 +21,7 @@
 **Make sure you have at least Node 6.x or higher (w/ npm 3+) installed!**
 
 Make sure you have .NET Core 5.0 installed and/or VS2019.
-VS2019 will automatically install all the neccessary npm & .NET dependencies when you open the project.
+VS2019 will automatically install all the neccessary npm & .NET dependencies when you open the project.<br/>
 If VS can't install node files. Please try "npm install" and push F5 to start debugging!<br/>
 SwaggerUI Address : http://localhost/swagger/index.html <br/>
 AureliaUI Address : http://localhost
