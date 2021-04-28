@@ -26,6 +26,6 @@ If VS can't install node files. Please try "npm install" and push F5 to start de
 SwaggerUI Address : http://localhost/swagger/index.html <br/>
 AureliaUI Address : http://localhost
 
-**Docker Build**
-For docker usage in solution folder run "**docker build -t hahnproject:1.0 .**"
+**Docker Build**<br/>
+For docker usage in solution folder run "**docker build -t hahnproject:1.0 .**"<br/>
 and run "**docker run -d -p 80:80 --name hahn hahnproject:1.0**"
