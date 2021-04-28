@@ -1,4 +1,5 @@
 import { PLATFORM } from 'aurelia-framework';
+import { I18N } from 'aurelia-i18n';
 import { inject } from "aurelia-framework";
 import { Router, RouterConfiguration } from 'aurelia-router';
 import { HttpClient } from "aurelia-fetch-client";
@@ -7,18 +8,20 @@ import { AuthService } from "../services/auth-service";
 import { AuthorizeStep } from "../services/authorization-step";
 import { FlashMessageService } from '../services/flash-message-service';
 
-@inject(AuthService, HttpClient, EventAggregator, FlashMessageService)
+@inject(AuthService, HttpClient, EventAggregator, FlashMessageService, I18N)
 export class App {
     authService: AuthService;
     eventAggregator: EventAggregator;
     flashMessageService: FlashMessageService;
     router: Router | undefined;
+    i18n: I18N;
 
     constructor(
         authService: AuthService,
         http: HttpClient,
         eventAggregator: EventAggregator,
-        flashMessageService: FlashMessageService
+        flashMessageService: FlashMessageService,
+        i18n: I18N
     ) {
         this.authService = authService;
         this.eventAggregator = eventAggregator;
@@ -27,6 +30,10 @@ export class App {
             config
                 .withBaseUrl('/')
                 .withInterceptor(this.authService.tokenInterceptor);
+        });
+        this.i18n = i18n;
+        this.i18n.setLocale('en').then(() => {
+            console.log('Locale is ready!', this.i18n.tr('homepagetitle'));
         });
     }
 

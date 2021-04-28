@@ -8,7 +8,7 @@
     "emitDecoratorMetadata": true,
     "skipDefaultLibCheck": true,
     "lib": [ "es2015", "dom" ],
-    "types": [ "webpack-env" ]
+    "types": [ "webpack-env","i18next", "i18next-xhr-backend" ]
   },
   "exclude": [ "bin", "node_modules" ],
   "atom": { "rewriteTsconfig": false }

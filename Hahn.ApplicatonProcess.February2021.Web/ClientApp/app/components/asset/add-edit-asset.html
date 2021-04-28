@@ -3,32 +3,32 @@
         <div class="row justify-content-center align-items-center">
             <div class="card">
                 <div class="card-header">
-                    <h1 if.bind="ifNewAsset">Create Asset</h1>
-                    <h1 if.bind="!ifNewAsset">Update Asset</h1>
+                    <h1 if.bind="ifNewAsset">${ "detailctitle" | t } </h1>
+                    <h1 if.bind="!ifNewAsset">${ "detailutitle" | t } </h1>
                 </div>
                 <div class="card-body">
-                    <p class="card-text" if.bind="ifNewAsset">Add new asset</p>
-                    <p class="card-text" if.bind="!ifNewAsset">Update asset</p>
-                    <a route-href="route: assets;" class="card-link">
-                        Go back to list
+                    <p class="card-text" if.bind="ifNewAsset">${ "homepagenewasset" | t }</p>
+                    <p class="card-text" if.bind="!ifNewAsset">${ "detailuasset" | t }</p>
+                    <a route-href="route: assets;" class="card-link">                        
+                        ${ "detailglist" | t }
                     </a>
                 </div>
                 <form class="card-block" submit.trigger="save()" if.bind="isAssetFound">
 
                     <div class="form-group">
-                        <label for="assetName">Name</label>
+                        <label for="assetName">${ "homepagetableassetname" | t }</label>
                         <div class="input-group mb-12">
                             <input autocomplete="off"
                                    type="text"
                                    class="form-control"
                                    id="assetName"
                                    value.bind="assetName & validate" required
-                                   placeholder="Name"
+                                   placeholder="${ "homepagetableassetname" | t }"
                                    change.delegate="checkFormValid()" keyup.delegate="checkFormValid()">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="department">Department</label>
+                        <label for="department">${ "homepagetabledepartment" | t }</label>
                         <div class="input-group mb-12">
                             <abp-select autocomplete="off"
                                         element.bind="picker"
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="countryOfDepartment">Country Of Department</label>
+                        <label for="countryOfDepartment">${ "homepagetablecd" | t }</label>
                         <div class="input-group mb-12">
                             <abp-select autocomplete="off"
                                         element.bind="picker"
@@ -50,20 +50,20 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="eMailAdressOfDepartment">Email</label>
+                        <label for="eMailAdressOfDepartment">${ "homepagetableed" | t }</label>
                         <div class="input-group mb-12">
                             <input autocomplete="off"
                                    type="text"
                                    class="form-control"
                                    id="eMailAdressOfDepartment"
                                    value.bind="eMailAdressOfDepartment & validate" required
-                                   placeholder="Email"
+                                   placeholder="${ "homepagetableed" | t }"
                                    change.delegate="checkFormValid()" keyup.delegate="checkFormValid()">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="purchaseDate">Purchase Date</label>
+                        <label for="purchaseDate">${ "homepagetablepd" | t }</label>
                         <div class="input-group mb-12">
                             <abp-datetime-picker value.bind="purchaseDate & validate"
                                                  options.bind="{ format: 'YYYY-MM-DD' }">
@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="form-check">
-                        <label class="form-check-label" for="isBroken">Broken</label>
+                        <label class="form-check-label" for="isBroken">${ "homepagetablebr" | t }</label>
                         <input type="checkbox"
                                class="form-check-input"
                                id="isBroken"
@@ -91,14 +91,16 @@
                         </ul>
                     </div>
                     <button type="submit" class="btn btn-success" disabled.bind="isFormSending">
-                        Save
+                        
+                        ${ "detailsave" | t }
                     </button>
                     <button type="button" class="btn btn-warning" click.trigger="resetForm()" disabled.bind="isFormNotValid">
-                        Reset
+                        
+                        ${ "detailreset" | t }
                     </button>
                 </form>
-                <div if.bind="!isAssetFound" class="alert alert-danger" role="alert">
-                    Asset is not found!
+                <div if.bind="!isAssetFound" class="alert alert-danger" role="alert">                    
+                    ${ "detailassetnf" | t }
                 </div>
             </div>
         </div>

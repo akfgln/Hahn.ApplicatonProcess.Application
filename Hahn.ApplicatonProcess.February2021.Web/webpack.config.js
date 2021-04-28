@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const { AureliaPlugin } = require('aurelia-webpack-plugin');
 const bundleOutputDir = './wwwroot/dist';
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -32,6 +33,9 @@ module.exports = (env) => {
                 context: __dirname,
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             }),
+            new CopyWebpackPlugin([
+                { from: './wwwroot/locale/', to: 'locale/' }
+            ]),
             new AureliaPlugin({ aureliaApp: 'boot' })
         ].concat(isDevBuild ? [
             new webpack.SourceMapDevToolPlugin({

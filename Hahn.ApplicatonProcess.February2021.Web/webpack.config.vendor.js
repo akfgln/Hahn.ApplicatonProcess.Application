@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var extractCSS = new ExtractTextPlugin('vendor.css');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = ({ prod } = {}) => {
     const isDevBuild = !prod;
@@ -49,7 +50,10 @@ module.exports = ({ prod } = {}) => {
             new webpack.DllPlugin({
                 path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
                 name: '[name]_[hash]'
-            })
+            }),
+            new CopyWebpackPlugin([
+                { from: './wwwroot/locale/', to: 'locale/' }
+            ])
         ].concat(isDevBuild ? [] : [
             new UglifyJsPlugin({
                 cache: true,
