@@ -16,17 +16,19 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <Compile Remove="ClientApp\app\components\home\**" />
     <Compile Remove="wwwroot\dist\**" />
+    <Content Remove="ClientApp\app\components\home\**" />
     <Content Remove="wwwroot\dist\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\home\**" />
     <EmbeddedResource Remove="wwwroot\dist\**" />
+    <None Remove="ClientApp\app\components\home\**" />
     <None Remove="wwwroot\dist\**" />
     <TypeScriptCompile Remove="node_modules\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="ClientApp\app\components\app\app.js" />
     <None Remove="ClientApp\app\components\app\app.js.map" />
-    <None Remove="ClientApp\app\components\home\home.js" />
-    <None Remove="ClientApp\app\components\home\home.js.map" />
     <None Remove="ClientApp\app\components\login\login.js" />
     <None Remove="ClientApp\app\components\login\login.js.map" />
     <None Remove="ClientApp\app\components\navmenu\navmenu.js" />
@@ -53,7 +55,6 @@
 
   <ItemGroup>
     <None Include="ClientApp\app\components\app\app.ts" />
-    <None Include="ClientApp\app\components\home\home.ts" />
     <None Include="ClientApp\boot.ts" />
     <None Include="Views\_ViewImports.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
