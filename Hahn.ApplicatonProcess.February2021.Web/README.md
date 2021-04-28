@@ -22,8 +22,8 @@
 
 Make sure you have .NET Core 5.0 installed and/or VS2019.
 VS2019 will automatically install all the neccessary npm & .NET dependencies when you open the project.
-If will not install try "npm install" and push F5 to start debugging!
-SwaggerUI Address : http://localhost/swagger/index.html
+If VS can't install node files. Please try "npm install" and push F5 to start debugging!<br/>
+SwaggerUI Address : http://localhost/swagger/index.html <br/>
 AureliaUI Address : http://localhost
 
 **Docker Build**
