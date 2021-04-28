@@ -35,20 +35,12 @@ export class App {
         let step = new AuthorizeStep(this.authService, this.eventAggregator);
         config.addAuthorizeStep(step);
         config.map([{
-            route: ['', 'home'],
-            name: 'home',
-            settings: { icon: 'home' },
-            moduleId: PLATFORM.moduleName('../home/home'),
-            nav: true,
-            title: 'Home'
-        },
-        {
-            route: 'assets',
+            route: ['', 'assets'],
             name: 'assets',
-            settings: { icon: 'th-list', auth: true },
+            settings: { icon: 'home' },
             moduleId: PLATFORM.moduleName('../asset/assets'),
             nav: true,
-            title: 'Assets'
+            title: 'Home'
         },
         {
             route: 'addEditAsset/:id',

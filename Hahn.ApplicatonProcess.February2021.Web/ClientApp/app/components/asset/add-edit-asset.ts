@@ -271,7 +271,6 @@ export class CreateAsset {
     resetForm() {
         if (confirm('Are you sure that you want to reset the from?')) {
             this.resetObject();
-            this.checkFormValid();
         }
     }
 

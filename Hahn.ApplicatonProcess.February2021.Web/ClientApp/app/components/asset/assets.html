@@ -1,43 +1,59 @@
 <template>
     <h1>Assets</h1>
 
-    <p if.bind="!assets"><em>Loading...</em></p>
-    <a route-href="route: addEditAsset;
+    <p>Welcome to your new single-page application, built with:</p>
+    <ul>
+        <li><a href="https://get.asp.net/">ASP.NET Core</a> and <a href="https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx">C#</a> for cross-platform server-side code</li>
+        <li><a href="http://aurelia.io/">Aurelia</a> and <a href="http://www.typescriptlang.org/">TypeScript</a> for client-side code</li>
+        <li><a href="https://webpack.github.io/">Webpack</a> for building and bundling client-side resources</li>
+        <li><a href="http://getbootstrap.com/">Bootstrap</a> for layout and styling</li>
+    </ul>
+    <p>To help you get started, we've also set up:</p>
+    <ul>
+        <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
+        <li><strong>Webpack dev middleware</strong>. In development mode, there's no need to run the <code>webpack</code> build tool. Your client-side resources are dynamically built on demand. Updates are available as soon as you modify any file.</li>
+        <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and the <code>webpack</code> build tool produces minified static CSS and JavaScript files.</li>
+    </ul>
+
+    <p if.bind="!isLogin" class="alert alert-info"><em> Please <a route-href="route: login;">Log in</a> for the Assets processing</em></p>
+    <div if.bind="isLogin">
+        <a route-href="route: addEditAsset;
                    params.bind: {id:0}">
-        Add New Asset
-    </a>
-    <table if.bind="assets" class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Asset Name</th>
-                <th>Department</th>
-                <th>Country Of Department</th>
-                <th>EMail Adress Of Department</th>
-                <th>Purchase Date</th>
-                <th>Broken</th>
-                <th>Details</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr repeat.for="asset of assets">
-                <td>${ asset.id }</td>
-                <td>${ asset.assetName }</td>
-                <td>${ asset.department }</td>
-                <td>${ asset.countryOfDepartment }</td>
-                <td>${ asset.eMailAdressOfDepartment }</td>
-                <td>${ asset.purchaseDate }</td>
-                <td>${ asset.isBroken }</td>
-                <td>
-                    <a route-href="route: addEditAsset;
+            Add New Asset
+        </a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Asset Name</th>
+                    <th>Department</th>
+                    <th>Country Of Department</th>
+                    <th>EMail Adress Of Department</th>
+                    <th>Purchase Date</th>
+                    <th>Broken</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="asset of assets">
+                    <td>${ asset.id }</td>
+                    <td>${ asset.assetName }</td>
+                    <td>${ asset.department }</td>
+                    <td>${ asset.countryOfDepartment }</td>
+                    <td>${ asset.eMailAdressOfDepartment }</td>
+                    <td>${ asset.purchaseDate }</td>
+                    <td>${ asset.isBroken }</td>
+                    <td>
+                        <a route-href="route: addEditAsset;
                                    params.bind: {id:asset.id}" class="btn btn-info">
-                        Get
-                    </a>
-                    <button type="button" class="btn btn-danger" click.trigger="delete(asset)">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                            Get
+                        </a>
+                        <button type="button" class="btn btn-danger" click.trigger="delete(asset)">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </template>

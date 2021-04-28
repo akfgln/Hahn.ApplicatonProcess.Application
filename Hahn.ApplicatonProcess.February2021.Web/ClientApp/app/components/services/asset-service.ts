@@ -10,7 +10,6 @@ export class AssetService {
     }
 
     getAssets() {
-
         return this.http.fetch('api/Asset')
             .then(result => result.json())
             .then(data => {
@@ -20,7 +19,7 @@ export class AssetService {
                 var result: any = {
                     success: false,
                     data: {},
-                    errors: ["An error occurred."]
+                    errors: ["An error occurred.", "Try to authenticate."]
                 };
                 console.log(error);
                 return result;
@@ -34,8 +33,6 @@ export class AssetService {
         })
             .then(response => response.json())
             .then(data => {
-
-                
                 var result: any = {
                     success: false,
                     data: {},
